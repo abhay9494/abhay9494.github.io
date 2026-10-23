@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Abhay Prasad · Software Engineer</title>
+  <meta name="description" content="Abhay Prasad: final-year B.Tech IT student at IIIT Lucknow and incoming SDE intern at Tesco Technology. I build Chrome extensions, bots and ML pipelines. Codeforces Specialist, Amazon ML Challenge 2026 top 1,000.">
+  <meta name="author" content="Abhay Prasad">
+  <meta name="theme-color" content="#f4effc">
+  <link rel="canonical" href="https://abhay9494.github.io/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Abhay Prasad · Software Engineer">
+  <meta property="og:description" content="I build Chrome extensions, bots and ML pipelines that take the boring parts off people's plates. IIIT Lucknow '27 · incoming SDE intern at Tesco.">
+  <meta property="og:url" content="https://abhay9494.github.io/">
+  <meta property="og:image" content="https://abhay9494.github.io/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/abhay.webp" type="image/webp">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script>
+    (function () {
+      var r = document.documentElement, t, m, seen;
+      try { t = localStorage.getItem('theme'); m = localStorage.getItem('motion'); seen = sessionStorage.getItem('intro'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      var reduced = m ? m === 'reduced' : matchMedia('(prefers-reduced-motion: reduce)').matches;
+      r.dataset.theme = t;
+      r.dataset.motion = reduced ? 'reduced' : 'full';
+      r.classList.add('js');
+      if (!reduced) {
+        r.classList.add('intro-pending');
+        if (!seen) r.classList.add('is-loading');
+        setTimeout(function () { r.classList.remove('is-loading', 'intro-pending'); }, 5000);
+      }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Abhay Prasad",
+    "url": "https://abhay9494.github.io/",
+    "image": "https://abhay9494.github.io/assets/img/abhay.jpg",
+    "jobTitle": "Software Engineer",
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Indian Institute of Information Technology, Lucknow" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Dhanbad", "addressRegion": "Jharkhand", "addressCountry": "IN" },
+    "sameAs": [
+      "https://github.com/abhay9494",
+      "https://www.linkedin.com/in/abhay9494",
+      "https://codeforces.com/profile/abhay9494",
+      "https://www.codechef.com/users/abhay9492"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16"/><path d="m6 14 6 6 6-6"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Intro -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader-mark">
+      <span class="loader-name">Abhay <em>Prasad</em></span>
+      <span class="loader-sub mono">Software engineer — portfolio ©<span data-year>2026</span></span>
+    </div>
+    <span class="loader-count mono"><span data-count-load>000</span></span>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-label"></span></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="#home" aria-label="Abhay Prasad, home">abhay<span>.</span>prasad</a>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="roll" href="#about"><span class="roll-in"><span>About</span><span aria-hidden="true">About</span></span></a>
+      <a class="roll" href="#work"><span class="roll-in"><span>Work</span><span aria-hidden="true">Work</span></span></a>
+      <a class="roll" href="#experience"><span class="roll-in"><span>Experience</span><span aria-hidden="true">Experience</span></span></a>
+      <a class="roll" href="#awards"><span class="roll-in"><span>Awards</span><span aria-hidden="true">Awards</span></span></a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="text-btn settings-btn" type="button" aria-expanded="false" aria-controls="settings">Settings</button>
+      <a class="pill pill-glow pill-sm magnetic" href="#contact"><span>Let's talk</span></a>
+      <button class="text-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+
+    <div class="settings" id="settings" hidden>
+      <p class="mono settings-title">Settings</p>
+      <label class="switch">
+        <span>Dark mode</span>
+        <input type="checkbox" data-setting="theme">
+        <i aria-hidden="true"></i>
+      </label>
+      <label class="switch">
+        <span>Animations</span>
+        <input type="checkbox" data-setting="motion">
+        <i aria-hidden="true"></i>
+      </label>
+      <p class="settings-note mono" data-motion-note></p>
+    </div>
+  </header>
+
+  <!-- Full-screen menu (phones) -->
+  <div class="menu" id="menu" hidden>
+    <nav aria-label="Menu">
+      <ol>
+        <li><a href="#home"><span class="mono">01</span>Home</a></li>
+        <li><a href="#about"><span class="mono">02</span>About</a></li>
+        <li><a href="#work"><span class="mono">03</span>Work</a></li>
+        <li><a href="#experience"><span class="mono">04</span>Experience</a></li>
+        <li><a href="#awards"><span class="mono">05</span>Awards</a></li>
+        <li><a href="#contact"><span class="mono">06</span>Contact</a></li>
+      </ol>
+    </nav>
+    <div class="menu-foot">
+      <a class="pill pill-glow" href="assets/Abhay_Prasad_Resume.pdf" download><span>Download resume</span></a>
+      <p class="mono">Dhanbad, IN · <span data-clock>--:--</span> IST</p>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <canvas class="hero-gl" aria-hidden="true"></canvas>
+
+      <div class="hero-inner">
+        <div class="hero-meta mono">
+          <span data-intro>(Software engineer)</span>
+          <span data-intro class="hide-sm">IIIT Lucknow — class of 2027</span>
+          <span data-intro>Dhanbad, IN · <span data-clock>--:--</span> IST</span>
+        </div>
+
+        <h1 class="hero-name">
+          <span class="hero-line l1" data-split-chars>Abhay</span>
+          <span class="hero-line l2" data-split-chars><em>Prasad</em></span>
+        </h1>
+
+        <figure class="portrait" data-portrait>
+          <picture>
+            <source srcset="assets/img/abhay.webp" type="image/webp">
+            <img src="assets/img/abhay.jpg" width="900" height="1125" alt="Portrait of Abhay Prasad" fetchpriority="high">
+          </picture>
+          <canvas class="ascii" aria-hidden="true"></canvas>
+          <figcaption class="portrait-hint mono">[ hover me — I'm made of code ]</figcaption>
+        </figure>
+
+        <div class="hero-bottom">
+          <p class="hero-tag" data-intro>
+            <span class="tag-line">I build <span class="typer" aria-hidden="true" data-words="Chrome extensions|Telegram bots|ML pipelines|REST APIs|LLM integrations"><span class="typer-text">Chrome extensions</span><span class="typer-caret"></span></span></span>
+            <span class="sr-only">Chrome extensions, Telegram bots, ML pipelines, REST APIs and LLM integrations</span>
+            that take the <em>boring parts</em> off people's plates.
+          </p>
+
+          <div class="hero-side" data-intro>
+            <a class="status" href="#experience"><span class="pulse" aria-hidden="true"></span> Incoming SDE Intern · Tesco Technology</a>
+            <div class="hero-ctas">
+              <a class="pill pill-glow magnetic" href="#work"><span>See my work</span></a>
+              <a class="pill pill-line magnetic" href="assets/Abhay_Prasad_Resume.pdf" download><span>Resume</span><svg class="ic"><use href="#i-down"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <a class="keep-scrolling mono" href="#about" data-intro>Keep scrolling <span class="ks-line" aria-hidden="true"></span></a>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="about section" id="about">
+      <div class="wrap">
+        <p class="label mono" data-fade>(01) About</p>
+        <p class="statement" data-scrub-text>
+          <span class="hook" aria-hidden="true">↪</span> I'm a final-year IT student at IIIT Lucknow who likes problems where software can quietly take over a chore.
+        </p>
+
+        <div class="about-grid">
+          <div class="about-copy">
+            <p data-fade>My Chrome extension fills job applications page by page and never presses Submit. A bot emails recruiters from a Google Sheet on a schedule. A Telegram bot sends <strong>100+ students</strong> the job links that fit their batch.</p>
+            <p data-fade>Outside of building, I compete: Codeforces Specialist, CodeChef 3★, and an entity-resolution pipeline I built solo that placed in the <strong>top 1,000 of 32,000+ teams</strong> at the Amazon ML Challenge 2026.</p>
+            <a class="link-arrow" href="assets/Abhay_Prasad_Resume.pdf" download data-fade>Download my resume <svg class="ic"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <div class="build">
+            <p class="label mono" data-fade>What I build</p>
+            <ol class="build-list">
+              <li data-fade><span class="mono">(001)</span><span class="b-name">Chrome extensions</span><span class="b-tech mono">JS · MV3</span></li>
+              <li data-fade><span class="mono">(002)</span><span class="b-name">Automation &amp; bots</span><span class="b-tech mono">Python · Actions</span></li>
+              <li data-fade><span class="mono">(003)</span><span class="b-name">ML pipelines</span><span class="b-tech mono">LightGBM · Pandas</span></li>
+              <li data-fade><span class="mono">(004)</span><span class="b-name">REST APIs &amp; full stack</span><span class="b-tech mono">Spring · Node · React</span></li>
+              <li data-fade><span class="mono">(005)</span><span class="b-name">LLM integration</span><span class="b-tech mono">Gemini · Groq</span></li>
+              <li data-fade><span class="mono">(006)</span><span class="b-name">Competitive programming</span><span class="b-tech mono">C++ · DSA</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <dl class="numbers">
+          <div data-fade><dt class="mono">Problems solved</dt><dd><span data-count="900">900</span>+</dd></div>
+          <div data-fade><dt class="mono">Contests</dt><dd><span data-count="80">80</span>+</dd></div>
+          <div data-fade><dt class="mono">Codeforces max</dt><dd><span data-count="1424">1,424</span></dd></div>
+          <div data-fade><dt class="mono">Bot users</dt><dd><span data-count="100">100</span>+</dd></div>
+        </dl>
+      </div>
+
+    </section>
+
+    <!-- ================= CAMPUS (text window that floods open) ================= -->
+    <section class="campus" aria-label="IIIT Lucknow, where I study">
+      <div class="campus-stage">
+        <p class="campus-kicker mono" aria-hidden="true"><span>(Where I study)</span><span class="ck-hint">Move your cursor over the letters</span></p>
+        <svg class="campus-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <filter id="duo-light" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0"/>
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues=".09 .73"/>
+                <feFuncG type="table" tableValues=".05 .61"/>
+                <feFuncB type="table" tableValues=".22 1"/>
+              </feComponentTransfer>
+            </filter>
+            <filter id="duo-dark" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0"/>
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues=".16 .85"/>
+                <feFuncG type="table" tableValues=".09 .78"/>
+                <feFuncB type="table" tableValues=".32 1"/>
+              </feComponentTransfer>
+            </filter>
+            <radialGradient id="spot-grad">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset=".55" stop-color="#fff"/>
+              <stop offset="1" stop-color="#000"/>
+            </radialGradient>
+            <mask id="campus-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+              <rect width="1600" height="900" fill="#000"/>
+              <text class="campus-word" x="800" y="560" text-anchor="middle" font-size="380" fill="#fff">Lucknow</text>
+              <rect class="campus-flood" width="1600" height="900" fill="#fff" opacity="0"/>
+            </mask>
+            <mask id="spot-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+              <rect width="1600" height="900" fill="#000"/>
+              <circle class="campus-spot" cx="800" cy="450" r="0" fill="url(#spot-grad)"/>
+            </mask>
+          </defs>
+          <g mask="url(#campus-mask)">
+            <g class="campus-img">
+              <image class="campus-duo" href="assets/img/iiitl-campus.webp" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid slice"/>
+              <image class="campus-color" href="assets/img/iiitl-campus.webp" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid slice" opacity="0"/>
+              <image class="campus-lens" href="assets/img/iiitl-campus.webp" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid slice" mask="url(#spot-mask)"/>
+            </g>
+          </g>
+        </svg>
+
+        <div class="campus-caption">
+          <div class="cc-title">
+            <span class="logo-mark" role="img" aria-label="IIIT Lucknow logo"></span>
+            <h2>IIIT Lucknow</h2>
+          </div>
+          <dl class="cc-spec mono">
+            <div><dt>Degree</dt><dd>B.Tech, Information Technology</dd></div>
+            <div><dt>Batch</dt><dd>2023 → 2027</dd></div>
+            <div><dt>CGPA</dt><dd>8.0 / 10</dd></div>
+            <div><dt>City</dt><dd>Lucknow, Uttar Pradesh</dd></div>
+            <div><dt>Focus</dt><dd>DSA · Databases · Compilers</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WORK ================= -->
+    <section class="work section" id="work">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label mono" data-fade>(02) Work</p>
+          <h2 class="h-big" data-split>Some <em><span class="hook">↪</span> of my</em> projects</h2>
+          <p class="sub mono" data-fade>Things I built because I needed them — and a few I built to learn</p>
+        </header>
+
+        <div class="stack">
+          <!-- 01 Auto Form Filler -->
+          <article class="card" style="--p: var(--c-violet)">
+            <dl class="spec mono">
+              <div><dt>PRJCT</dt><dd>/01</dd></div>
+              <div><dt>Created:</dt><dd>Oct 2026</dd></div>
+              <div><dt>Type:</dt><dd>Chrome extension</dd></div>
+              <div><dt>Scope:</dt><dd>Frontend · AI · Testing</dd></div>
+              <div><dt>Stack:</dt><dd>JavaScript, Chrome MV3, Gemini / Groq, LaTeX, Puppeteer</dd></div>
+            </dl>
+
+            <div class="card-main">
+              <h3>Auto Form Filler</h3>
+              <p class="lede">Fills job applications and Google Forms page by page, uploads the right resume, and <em>never presses the final Submit</em>.</p>
+              <ul class="points">
+                <li>Answers from my profile and memory first, then <strong>one batched LLM call per form</strong> for the rest, on Google Forms, Greenhouse, Lever, Workday and more.</li>
+                <li><strong>Resume Studio</strong> tailors a LaTeX resume to each job description, keeps it to one page and shows a before/after ATS keyword score.</li>
+                <li>PIN + Windows Hello lock. <strong>90+ unit tests</strong> and a <strong>70+ check</strong> Puppeteer end-to-end suite on live forms.</li>
+              </ul>
+              <a class="pill pill-line pill-sm private" href="#contact" data-demo="Auto Form Filler"><svg class="ic"><use href="#i-lock"/></svg><span>Private repo · ask for a demo</span></a>
+            </div>
+
+            <div class="card-visual" aria-hidden="true">
+              <div class="mock browser aff">
+                <div class="mock-bar"><i></i><i></i><i></i><span class="url">docs.google.com/forms/…/viewform</span></div>
+                <div class="mock-body">
+                  <div class="form-head"><b>SDE Intern · Application</b><small>Page 2 of 3</small></div>
+                  <div class="field" style="--d:0"><label>Full name</label><div class="input"><span class="type">Abhay Prasad</span><em class="src s-profile">profile</em></div></div>
+                  <div class="field" style="--d:1"><label>Graduation year</label><div class="input"><span class="type">2027</span><em class="src s-memory">memory</em></div></div>
+                  <div class="field" style="--d:2"><label>Why do you want to join us?</label><div class="input tall"><span class="type">I enjoy building tools that save people hours every week…</span><em class="src s-ai">AI · review</em></div></div>
+                  <div class="field" style="--d:3"><label>Resume</label><div class="input file"><svg class="ic"><use href="#i-file"/></svg><span class="type">Abhay_Prasad_Resume.pdf</span><em class="src s-ok">uploaded</em></div></div>
+                  <div class="form-foot">
+                    <span class="fake-btn ghost">Back</span>
+                    <span class="fake-btn submit"><svg class="ic"><use href="#i-lock"/></svg> Submit</span>
+                  </div>
+                </div>
+                <div class="aff-panel">
+                  <div class="aff-head"><span class="aff-logo"><svg class="ic"><use href="#i-bolt"/></svg></span> Auto Form Filler</div>
+                  <div class="aff-progress"><span></span></div>
+                  <div class="aff-row"><span>4 / 4 answered</span><span class="ok">✓</span></div>
+                  <div class="aff-note">You press Submit.</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02 HR Auto Mailer Bot -->
+          <article class="card" style="--p: var(--c-amber)">
+            <dl class="spec mono">
+              <div><dt>PRJCT</dt><dd>/02</dd></div>
+              <div><dt>Created:</dt><dd>Aug 2026</dd></div>
+              <div><dt>Type:</dt><dd>Automation bot</dd></div>
+              <div><dt>Scope:</dt><dd>Backend · DevOps</dd></div>
+              <div><dt>Stack:</dt><dd>Python, Gmail SMTP / IMAP, Google Sheets, GitHub Actions, Telegram</dd></div>
+            </dl>
+
+            <div class="card-main">
+              <h3>HR Auto Mailer Bot</h3>
+              <p class="lede">Cold-email outreach that runs itself on GitHub Actions. <em>No laptop, no server.</em></p>
+              <ul class="points">
+                <li>Reads recruiter contacts from Google Sheets, de-duplicates emails with regex and sends personalised emails with my resume over Gmail SMTP.</li>
+                <li><strong>10 runs a day</strong> with per-account daily limits, <strong>48-hour cooldowns</strong> and a dry-run mode; IMAP bounces are marked in the sheet.</li>
+                <li>Telegram commands (<code>/status</code>, <code>/cooldown</code>, <code>/volume</code>) control sending remotely.</li>
+              </ul>
+              <a class="pill pill-line pill-sm private" href="#contact" data-demo="HR Auto Mailer Bot"><svg class="ic"><use href="#i-lock"/></svg><span>Private repo · ask for a demo</span></a>
+            </div>
+
+            <div class="card-visual" aria-hidden="true">
+              <div class="mock terminal">
+                <div class="mock-bar"><i></i><i></i><i></i><span class="url">GitHub Actions · mailer.yml</span></div>
+                <div class="term">
+                  <p style="--d:0"><span class="t-dim">09:30 IST</span> <span class="t-acc">▶ run 3/10</span> started by cron</p>
+                  <p style="--d:1"><span class="t-ok">✓</span> Google Sheet synced · pending rows found</p>
+                  <p style="--d:2"><span class="t-ok">✓</span> sent → careers@acme.example <span class="t-dim">+ resume.pdf</span></p>
+                  <p style="--d:3"><span class="t-ok">✓</span> sent → hr@contoso.example <span class="t-dim">+ resume.pdf</span></p>
+                  <p style="--d:4"><span class="t-warn">↺</span> IMAP bounce found → row marked <span class="t-warn">failed</span></p>
+                  <p style="--d:5"><span class="t-acc">⏸</span> account limit reached · cooling down 48 h</p>
+                  <p style="--d:6"><span class="t-ok">✓</span> done · next run 11:00 IST<span class="caret"></span></p>
+                </div>
+              </div>
+              <div class="tg-float">
+                <div class="tg-msg me">/status</div>
+                <div class="tg-msg bot"><b>Mailer</b> · running<br>Daily limit OK · next run 11:00</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03 Amazon ML Challenge -->
+          <article class="card" style="--p: var(--c-cyan)">
+            <dl class="spec mono">
+              <div><dt>PRJCT</dt><dd>/03</dd></div>
+              <div><dt>Created:</dt><dd>Sep 2026</dd></div>
+              <div><dt>Type:</dt><dd>ML competition</dd></div>
+              <div><dt>Scope:</dt><dd>Data · Modelling · Validation</dd></div>
+              <div><dt>Stack:</dt><dd>Python, Pandas / Polars, LightGBM, RapidFuzz, AWS</dd></div>
+            </dl>
+
+            <div class="card-main">
+              <h3>Amazon ML Challenge: Entity Resolution</h3>
+              <p class="lede">Linking <strong>10.3M</strong> noisy, multilingual business records to <strong>2.2M</strong> entities, <em>on a CPU</em>.</p>
+              <ul class="points">
+                <li>Indic transliteration and a SymSpell-style corrector; inverted-index blocking + a LightGBM pruner keep <strong>~6 candidates per entity at 98.5% recall</strong>.</li>
+                <li>A 3-model LightGBM ensemble on ~140 features, a stage-2 re-scorer and an expected-F0.5 rule, validated leak-free over 13 versions.</li>
+                <li><strong>Top 1,000 of 32,000+ teams</strong> · 0.985 macro F0.5 · peak public rank 416.</li>
+              </ul>
+              <a class="pill pill-line pill-sm" href="https://github.com/abhay9494/amazon-ml-challenge-2026" target="_blank" rel="noopener"><span>View code</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+            </div>
+
+            <div class="card-visual">
+              <div class="ml-viz">
+                <ol class="pipeline" aria-label="Pipeline stages">
+                  <li style="--d:0">Normalise</li>
+                  <li style="--d:1">Block</li>
+                  <li style="--d:2">Prune</li>
+                  <li style="--d:3">Match</li>
+                  <li style="--d:4">Decide</li>
+                </ol>
+
+                <figure class="mock chart-card" data-chart>
+                  <figcaption class="chart-head">
+                    <span><b>Public leaderboard score</b><small>macro F0.5 by version</small></span>
+                    <span class="seg" role="group" aria-label="Chart view">
+                      <button type="button" class="on" data-view="chart" aria-pressed="true">Chart</button>
+                      <button type="button" data-view="table" aria-pressed="false">Table</button>
+                    </span>
+                  </figcaption>
+
+                  <div class="chart-wrap" data-view-panel="chart">
+                    <svg class="chart" viewBox="0 0 320 152" role="img" aria-label="Public leaderboard macro F0.5 rose from 0.977 at version 1 to 0.985 at version 13c">
+                      <g class="grid">
+                        <line x1="40" x2="306" y1="124" y2="124"/>
+                        <line x1="40" x2="306" y1="80.8" y2="80.8"/>
+                        <line x1="40" x2="306" y1="37.6" y2="37.6"/>
+                      </g>
+                      <g class="axis-y">
+                        <text x="34" y="127">0.976</text>
+                        <text x="34" y="83.8">0.980</text>
+                        <text x="34" y="40.6">0.984</text>
+                      </g>
+                      <g class="axis-x">
+                        <text x="40" y="142">v1</text>
+                        <text x="106" y="142">v4</text>
+                        <text x="172" y="142">v7c</text>
+                        <text x="194" y="142">v8c</text>
+                        <text x="260" y="142">v11a</text>
+                        <text x="304" y="142">v13c</text>
+                      </g>
+                      <path class="area" d="M40 113.2 L106 56.44 L172 48.51 L194 41.74 L260 25.84 L304 24.14 L304 124 L40 124 Z"/>
+                      <path class="line" pathLength="1" d="M40 113.2 L106 56.44 L172 48.51 L194 41.74 L260 25.84 L304 24.14"/>
+                      <line class="crosshair" x1="0" x2="0" y1="16" y2="124"/>
+                      <g class="pts">
+                        <g class="pt" tabindex="0" data-x="40" data-y="113.2" data-v="v1" data-s="0.977" data-n="Baseline"><circle class="hit" cx="40" cy="113.2" r="12"/><circle class="dot" cx="40" cy="113.2" r="4"/></g>
+                        <g class="pt" tabindex="0" data-x="106" data-y="56.44" data-v="v4" data-s="0.982256" data-n="SymSpell correction, leetspeak fix, soft token alignment, stage 2"><circle class="hit" cx="106" cy="56.44" r="12"/><circle class="dot" cx="106" cy="56.44" r="4"/></g>
+                        <g class="pt" tabindex="0" data-x="172" data-y="48.51" data-v="v7c" data-s="0.98299" data-n="Country-gated aliases (France), 3-model ensemble"><circle class="hit" cx="172" cy="48.51" r="11"/><circle class="dot" cx="172" cy="48.51" r="4"/></g>
+                        <g class="pt" tabindex="0" data-x="194" data-y="41.74" data-v="v8c" data-s="0.983617" data-n="Raw-evidence link veto and adder"><circle class="hit" cx="194" cy="41.74" r="11"/><circle class="dot" cx="194" cy="41.74" r="4"/></g>
+                        <g class="pt" tabindex="0" data-x="260" data-y="25.84" data-v="v11a" data-s="0.985089" data-n="Collective partner features, re-scorer ensemble"><circle class="hit" cx="260" cy="25.84" r="12"/><circle class="dot" cx="260" cy="25.84" r="4"/></g>
+                        <g class="pt" tabindex="0" data-x="304" data-y="24.14" data-v="v13c" data-s="0.985246" data-n="Final re-scorer ensemble (submitted)"><circle class="hit" cx="304" cy="24.14" r="12"/><circle class="dot" cx="304" cy="24.14" r="4"/></g>
+                      </g>
+                      <text class="dlabel" x="50" y="121">0.977</text>
+                      <text class="dlabel end" x="300" y="14">0.985</text>
+                    </svg>
+                    <div class="chart-tip" role="status" aria-live="polite"></div>
+                  </div>
+
+                  <div class="chart-table" data-view-panel="table" hidden>
+                    <table>
+                      <thead><tr><th scope="col">Version</th><th scope="col">Main change</th><th scope="col">F0.5</th></tr></thead>
+                      <tbody>
+                        <tr><td>v1</td><td>Baseline</td><td>0.977</td></tr>
+                        <tr><td>v4</td><td>SymSpell, leetspeak fix, soft alignment, stage 2</td><td>0.982256</td></tr>
+                        <tr><td>v7c</td><td>Country-gated aliases, 3-model ensemble</td><td>0.98299</td></tr>
+                        <tr><td>v8c</td><td>Raw-evidence link veto and adder</td><td>0.983617</td></tr>
+                        <tr><td>v11a</td><td>Partner features, re-scorer ensemble</td><td>0.985089</td></tr>
+                        <tr><td>v13c</td><td>Final re-scorer ensemble (submitted)</td><td>0.985246</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- More projects: rows with a floating preview -->
+        <div class="more">
+          <div class="more-head">
+            <p class="label mono" data-fade>More projects</p>
+            <a class="link-arrow mono" href="https://github.com/abhay9494" target="_blank" rel="noopener" data-fade>All repositories <svg class="ic"><use href="#i-arrow"/></svg></a>
+          </div>
+          <ul class="rows">
+            <li class="row" data-preview="tg" data-fade>
+              <a href="https://github.com/abhay9494/Apply-Links-Bot" target="_blank" rel="noopener">
+                <span class="r-num mono">/04</span>
+                <span class="r-title">Apply Links Telegram Bot</span>
+                <span class="r-meta mono">Python · Telethon · Groq · Flask</span>
+                <span class="r-year mono">2025</span>
+                <svg class="ic r-arrow"><use href="#i-arrow"/></svg>
+              </a>
+              <p class="r-desc">Reads the last 48 hours of posts from 20+ job channels, lets an LLM keep the ones that fit each student's batch, and sends them to <strong>100+ subscribers</strong>.</p>
+            </li>
+            <li class="row" data-preview="med" data-fade>
+              <a href="https://github.com/abhay9494/Mediedumatch" target="_blank" rel="noopener">
+                <span class="r-num mono">/05</span>
+                <span class="r-title">MediEduMatch</span>
+                <span class="r-meta mono">React · Spring Boot · MySQL · JWT</span>
+                <span class="r-year mono">2024</span>
+                <svg class="ic r-arrow"><use href="#i-arrow"/></svg>
+              </a>
+              <p class="r-desc">A NEET college predictor. I led a 4-member team and built the Spring Boot REST APIs that match a rank, category and state against <strong>1,000+ college cutoffs</strong>.</p>
+            </li>
+            <li class="row" data-preview="feed" data-fade>
+              <a href="https://github.com/abhay9494/InstagramClone" target="_blank" rel="noopener">
+                <span class="r-num mono">/06</span>
+                <span class="r-title">Social Media App</span>
+                <span class="r-meta mono">Node.js · Express · EJS · MySQL</span>
+                <span class="r-year mono">2024</span>
+                <svg class="ic r-arrow"><use href="#i-arrow"/></svg>
+              </a>
+              <p class="r-desc">An Instagram-style photo feed with 5 CRUD endpoints, Imgur image hosting, 500 Faker posts and layouts for five screen sizes.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- floating preview that follows the cursor over the rows -->
+      <div class="preview" aria-hidden="true">
+        <div class="preview-item" data-for="tg">
+          <div class="tg-chat">
+            <div class="tg-msg bot">Pick your graduation batch</div>
+            <div class="tg-keys"><span>2026</span><span class="on">2027</span><span>2028</span></div>
+            <div class="tg-msg bot">Scanned 20+ channels · last 48 h<br><b>LLM kept the posts for batch 2027</b></div>
+            <div class="tg-msg link">🔗 SDE Intern · apply link</div>
+          </div>
+        </div>
+        <div class="preview-item" data-for="med">
+          <div class="med">
+            <div class="med-in"><span>Rank <b>12,450</b></span><span><b>OBC</b></span><span><b>Jharkhand</b></span></div>
+            <div class="med-arrow">Spring Boot API · 1,000+ cutoffs</div>
+            <ul class="med-out">
+              <li><i></i><span></span><em>match</em></li>
+              <li><i></i><span></span><em>match</em></li>
+              <li><i></i><span></span><em>match</em></li>
+            </ul>
+          </div>
+        </div>
+        <div class="preview-item" data-for="feed">
+          <div class="feed">
+            <span style="--h:262"></span><span style="--h:200"></span><span style="--h:320"></span>
+            <span style="--h:20"></span><span style="--h:170"></span><span style="--h:290"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE & EDUCATION ================= -->
+    <section class="experience section" id="experience">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label mono" data-fade>(03) Experience</p>
+          <h2 class="h-big" data-split>Where I've <em><span class="hook">↪</span> worked</em></h2>
+        </header>
+
+        <ol class="xp">
+          <li class="xp-row" data-fade>
+            <span class="xp-date mono">Jan 2027 — Jun 2027</span>
+            <div class="xp-role">
+              <h3>Software Development Engineer Intern</h3>
+              <p class="mono">Tesco Technology · Bengaluru</p>
+            </div>
+            <div class="xp-detail"><p>Selected through on-campus hiring at IIIT Lucknow.</p></div>
+            <span class="tag tag-live">Incoming</span>
+          </li>
+          <li class="xp-row" data-fade>
+            <span class="xp-date mono">Mar 2026 — May 2026</span>
+            <div class="xp-role">
+              <h3>Business Analyst</h3>
+              <p class="mono">Turing · Remote</p>
+            </div>
+            <div class="xp-detail">
+              <p>Ran side-by-side evaluations of AI-generated outputs, rating quality, accuracy and relevance with written justifications, and fact-checked responses against sources.</p>
+            </div>
+            <button class="tag" type="button" data-view="drive:1s_CnM62VgI6pdzStssnTJdiO7v7-0Q3a" data-kicker="Letter · Turing" data-title="Business Analyst">[ view letter ]</button>
+          </li>
+          <li class="xp-row" data-fade>
+            <span class="xp-date mono">Jan 2026 — Feb 2026</span>
+            <div class="xp-role">
+              <h3>GUI Data Annotator</h3>
+              <p class="mono">Turing · Remote · Ubuntu desktop</p>
+            </div>
+            <div class="xp-detail">
+              <p>Reconstructed GUI task trajectories with PyAutoGUI-style JSON annotations for multimodal AI training data. Rated <strong>5/5</strong> with <strong>100% attendance</strong> and a <strong>0% rejection rate</strong>.</p>
+            </div>
+            <button class="tag" type="button" data-view="drive:1qd3QxpnhGJN2dOBe35oqP2FisNPCA2gt" data-kicker="Letter · Turing" data-title="GUI Data Annotator">[ view letter ]</button>
+          </li>
+        </ol>
+
+        <div class="edu">
+          <div>
+            <p class="label mono" data-fade>Education</p>
+            <ol class="xp edu-list">
+              <li class="xp-row school" data-fade tabindex="0"
+                  data-img="assets/img/iiitl-sign.jpg" data-alt="The IIIT Lucknow name board at the main gate"
+                  data-cap="IIIT Lucknow · main gate" data-crest="assets/img/iiitl-logo-mask.webp" data-crest-color="assets/img/iiitl-logo.webp">
+                <span class="xp-date mono">2023 — 2027</span>
+                <div class="xp-role">
+                  <h3>IIIT Lucknow</h3>
+                  <p class="mono">B.Tech · Information Technology</p>
+                </div>
+                <div class="xp-detail"><p>CGPA <strong>8.0</strong> / 10. Coursework: Data Structures &amp; Algorithms, Database Systems, Compiler Design.</p></div>
+              </li>
+              <li class="xp-row school" data-fade tabindex="0"
+                  data-img="assets/img/school-tata.jpg" data-alt="Tata DAV School, Dhanbad"
+                  data-cap="Tata DAV School · Dhanbad" data-crest="assets/img/tata-logo-mask.webp" data-crest-color="assets/img/tata-logo.webp">
+                <span class="xp-date mono">2019 — 2021</span>
+                <div class="xp-role">
+                  <h3>Tata DAV School</h3>
+                  <p class="mono">Class XII · Dhanbad</p>
+                </div>
+                <div class="xp-detail"><p>Scored <strong>88.4%</strong>.</p></div>
+              </li>
+              <li class="xp-row school" data-fade tabindex="0"
+                  data-img="assets/img/school-denobili.jpg" data-alt="De Nobili School building with its name board"
+                  data-cap="De Nobili School · FRI, Dhanbad" data-crest="assets/img/denobili-crest-mask.webp" data-crest-color="assets/img/denobili-crest.webp">
+                <span class="xp-date mono">Until 2019</span>
+                <div class="xp-role">
+                  <h3>De Nobili School, FRI</h3>
+                  <p class="mono">Class X · Dhanbad</p>
+                </div>
+                <div class="xp-detail"><p>Scored <strong>94%</strong>.</p></div>
+              </li>
+            </ol>
+          </div>
+
+          <figure class="pixel" data-pixel data-fade>
+            <div class="pixel-frame">
+              <img src="assets/img/iiitl-sign.jpg" width="1280" height="720" loading="lazy" alt="The IIIT Lucknow name board at the main gate">
+              <canvas aria-hidden="true"></canvas>
+            </div>
+            <figcaption>
+              <span class="crest" aria-hidden="true"><i></i></span>
+              <span class="pixel-cap mono" aria-live="polite">IIIT Lucknow · main gate</span>
+              <span class="pixel-dots" role="group" aria-label="Choose a school photo">
+                <button type="button" class="on" aria-label="IIIT Lucknow"></button>
+                <button type="button" aria-label="Tata DAV School"></button>
+                <button type="button" aria-label="De Nobili School"></button>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= AWARDS ================= -->
+    <section class="awards section" id="awards">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="label mono" data-fade>(04) Recognition</p>
+          <h2 class="h-big" data-split>Awards <em><span class="hook">↪</span> &amp; rankings</em></h2>
+          <p class="sub mono" data-fade>Contests, ratings and certificates · open any of them right here</p>
+        </header>
+
+        <div class="aw-row aw-row-2">
+          <!-- Codeforces -->
+          <article class="aw-card" data-fade>
+            <header class="aw-top">
+              <div>
+                <p class="label mono">Competitive programming</p>
+                <h3>Codeforces</h3>
+              </div>
+              <p class="aw-big"><small class="mono">max rating</small>1,424</p>
+            </header>
+            <figure class="cf-chart" data-cf>
+              <div class="cf-plot"></div>
+              <figcaption class="mono"><span data-cf-meta>23 rated contests</span> · live from Codeforces</figcaption>
+            </figure>
+            <ul class="aw-facts">
+              <li><span>Max rating</span><span class="mono">1,424 · Specialist</span></li>
+              <li><span>Current rating</span><span class="mono" data-cf-now>1,350 · Pupil</span></li>
+              <li><span>Round 1002 (Div. 2)</span><span class="mono">1,294 / 19,943 · top 6.5%</span></li>
+              <li><span>Round 995 (Div. 3)</span><span class="mono">1,588 / 13,078 · top 12.1%</span></li>
+            </ul>
+          </article>
+
+          <!-- CodeChef -->
+          <article class="aw-card" data-fade>
+            <header class="aw-top">
+              <div>
+                <p class="label mono">Competitive programming</p>
+                <h3>CodeChef</h3>
+              </div>
+              <p class="aw-big"><small class="mono">peak rating</small>1,680</p>
+            </header>
+            <div class="cc-visual">
+              <div class="cc-stars" role="img" aria-label="3 stars">
+                <svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg>
+                <span class="mono">3★ coder</span>
+              </div>
+              <div class="cc-bars">
+                <div class="cc-bar"><span class="mono">Starters 167 · Div. 3</span><span class="bar" title="Ahead of 98.0% of participants"><span style="--w:98.0"></span></span><b class="mono">ahead of 98.0%</b></div>
+                <div class="cc-bar"><span class="mono">Starters 172 · Div. 2</span><span class="bar" title="Ahead of 92.8% of participants"><span style="--w:92.8"></span></span><b class="mono">ahead of 92.8%</b></div>
+              </div>
+            </div>
+            <ul class="aw-facts">
+              <li><span>Peak rating</span><span class="mono">1,680 · 3★</span></li>
+              <li><span>Progress</span><span class="mono">+200 in under six months</span></li>
+              <li><span>Starters 167 (Div. 3)</span><span class="mono">55 / 2,702 · top 2.0%</span></li>
+              <li><span>Starters 172 (Div. 2)</span><span class="mono">141 / 1,954 · top 7.2%</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="aw-row aw-row-4">
+          <article class="aw-card aw-cert" data-fade>
+            <button class="aw-media aw-tile" type="button" data-view="tpl:amazon" data-kicker="Amazon ML Challenge 2026" data-title="Entity resolution · Top 1,000">
+              <span class="tile-big">#416</span>
+              <span class="tile-sub mono">peak public rank</span>
+              <span class="aw-view mono">View</span>
+            </button>
+            <p class="label mono">ML competition · 2026</p>
+            <h3>Amazon ML Challenge</h3>
+            <p>Top 1,000 of 32,000+ teams</p>
+          </article>
+
+          <article class="aw-card aw-cert" data-fade>
+            <button class="aw-media" type="button" data-view="drive:1cXhbC0zGDcfskCgY8G92dw1JQGunp4Kg" data-kicker="Certificate" data-title="Flipkart Grid 7.0 · National Semi-Finalist">
+              <img src="https://drive.google.com/thumbnail?id=1cXhbC0zGDcfskCgY8G92dw1JQGunp4Kg&amp;sz=w640" loading="lazy" alt="Flipkart Grid 7.0 certificate">
+              <span class="aw-view mono">View</span>
+            </button>
+            <p class="label mono">Engineering challenge</p>
+            <h3>Flipkart Grid 7.0</h3>
+            <p>National Semi-Finalist</p>
+          </article>
+
+          <article class="aw-card aw-cert" data-fade>
+            <button class="aw-media" type="button" data-view="drive:1nxNUNpzdDlMcUilhQ099VTOhFexu_eba" data-kicker="Certificate · Microsoft" data-title="Microsoft Certified: SQL AI Developer Associate">
+              <img src="https://drive.google.com/thumbnail?id=1nxNUNpzdDlMcUilhQ099VTOhFexu_eba&amp;sz=w640" loading="lazy" alt="Microsoft Certified SQL AI Developer Associate certificate">
+              <span class="aw-view mono">View</span>
+            </button>
+            <p class="label mono">Certification</p>
+            <h3>Microsoft Certified</h3>
+            <p>SQL AI Developer Associate</p>
+          </article>
+
+          <article class="aw-card aw-cert" data-fade>
+            <button class="aw-media" type="button" data-view="drive:1afdVjzNCAyKGkr_Lu9aqwyEvKUHOhMyI" data-kicker="Certificate" data-title="AlgoUniversity · GraphTheory Programming Camp">
+              <img src="https://drive.google.com/thumbnail?id=1afdVjzNCAyKGkr_Lu9aqwyEvKUHOhMyI&amp;sz=w640" loading="lazy" alt="AlgoUniversity GraphTheory camp certificate">
+              <span class="aw-view mono">View</span>
+            </button>
+            <p class="label mono">Programming camp</p>
+            <h3>AlgoUniversity</h3>
+            <p>17 advanced graph problems</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="contact section" id="contact">
+      <div class="wrap">
+        <p class="label mono" data-fade>(05) Stay in touch</p>
+        <h2 class="h-huge" data-split>Let's build <em><span class="hook">↪</span> something</em> useful</h2>
+
+        <div class="contact-cta" data-fade>
+          <a class="pill pill-glow pill-lg magnetic" data-gmail href="#contact"><span>Start a conversation</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+          <p>Have a role, a project or a question about something I built? Email or call, whichever is easier for you.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="c-col" data-fade>
+            <p class="label mono">E-mail</p>
+            <p class="c-big"><a data-contact="email" href="#contact">abhayyy9494 [at] gmail [dot] com</a></p>
+            <button class="copy mono" type="button" data-copy="email"><svg class="ic"><use href="#i-copy"/></svg><span>Copy</span></button>
+          </div>
+          <div class="c-col" data-fade>
+            <p class="label mono">Phone</p>
+            <p class="c-big"><a data-contact="phone" href="#contact">Turn on JavaScript to see</a></p>
+            <button class="copy mono" type="button" data-copy="phone"><svg class="ic"><use href="#i-copy"/></svg><span>Copy</span></button>
+          </div>
+          <div class="c-col" data-fade>
+            <p class="label mono">Social</p>
+            <ul class="idx-list">
+              <li><span class="mono">[01]</span><a href="https://github.com/abhay9494" target="_blank" rel="noopener">GitHub</a></li>
+              <li><span class="mono">[02]</span><a href="https://www.linkedin.com/in/abhay9494" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><span class="mono">[03]</span><a href="https://codeforces.com/profile/abhay9494" target="_blank" rel="noopener">Codeforces</a></li>
+              <li><span class="mono">[04]</span><a href="https://www.codechef.com/users/abhay9492" target="_blank" rel="noopener">CodeChef</a></li>
+              <li><span class="mono">[05]</span><a data-contact="whatsapp" href="#contact" target="_blank" rel="noopener">WhatsApp</a></li>
+            </ul>
+          </div>
+          <div class="c-col" data-fade>
+            <p class="label mono">Location</p>
+            <p>Dhanbad, Jharkhand, India.<br>Bengaluru from January 2027.</p>
+            <p class="mono c-time"><span data-clock>--:--</span> IST</p>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate data-fade>
+          <div class="cf-intro">
+            <p class="label mono">(Message)</p>
+            <h3>Write to me</h3>
+            <p>Fill this in and press send. Gmail opens with your message ready to go, so nothing is stored on this site.</p>
+          </div>
+          <div class="cf-card">
+            <div class="f-grid">
+              <label class="f-row"><span>Your name</span><input name="name" autocomplete="name" required placeholder="Jane Doe"></label>
+              <label class="f-row"><span>Subject</span><input name="subject" required placeholder="SDE role at …"></label>
+              <label class="f-row f-wide"><span>Message</span><textarea name="message" rows="5" required placeholder="Hi Abhay, …"></textarea></label>
+            </div>
+            <div class="f-actions">
+              <button class="pill pill-glow f-submit" type="submit"><span>Send via Gmail</span><svg class="ic"><use href="#i-arrow"/></svg></button>
+              <button class="text-btn mono" type="button" data-mailto>Use another mail app</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot-row mono">
+      <span>© <span data-year>2026</span> Abhay Prasad</span>
+      <a href="#home" class="to-top">[ back to top ↑ ]</a>
+    </div>
+    <p class="wordmark" aria-hidden="true" data-wordmark>abhay <em>prasad</em></p>
+  </footer>
+
+  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-panel">
+      <header class="viewer-head">
+        <div>
+          <p class="label mono" data-viewer-kicker>Certificate</p>
+          <h3 id="viewer-title" data-viewer-title>Proof</h3>
+        </div>
+        <div class="viewer-actions">
+          <a class="text-btn mono" data-viewer-open href="#" target="_blank" rel="noopener">Open original ↗</a>
+          <button class="viewer-close" type="button" aria-label="Close" data-viewer-close>×</button>
+        </div>
+      </header>
+      <div class="viewer-body" data-viewer-body></div>
+    </div>
+  </dialog>
+
+  <template id="tpl-amazon">
+    <div class="viewer-doc">
+      <div class="vd-stats">
+        <div><b>Top 1,000</b><span class="mono">of 32,000+ teams</span></div>
+        <div><b>#416</b><span class="mono">peak public rank</span></div>
+        <div><b>0.985</b><span class="mono">final macro F0.5</span></div>
+      </div>
+      <p>Business entity resolution: link 10.3M noisy, multilingual records to 2.2M entities across the US, India and France, on a CPU, with no GPU and no pretrained models. I built the pipeline solo over 13 versions.</p>
+      <table class="vd-table">
+        <thead><tr><th scope="col">Version</th><th scope="col">Main change</th><th scope="col">Public score</th></tr></thead>
+        <tbody>
+          <tr><td>v1</td><td>Baseline</td><td>0.977</td></tr>
+          <tr><td>v4</td><td>SymSpell correction, leetspeak fix, soft token alignment, stage 2</td><td>0.982256</td></tr>
+          <tr><td>v7c</td><td>Country-gated aliases (France), 3-model ensemble</td><td>0.98299</td></tr>
+          <tr><td>v8c</td><td>Raw-evidence link veto and adder</td><td>0.983617</td></tr>
+          <tr><td>v11a</td><td>Collective partner features, re-scorer ensemble</td><td>0.985089</td></tr>
+          <tr><td>v13c</td><td>Final re-scorer ensemble (submitted)</td><td>0.985246</td></tr>
+        </tbody>
+      </table>
+      <a class="pill pill-line pill-sm" href="#work" data-viewer-close><span>See the project card</span></a>
+    </div>
+  </template>
+
+  <script type="application/json" id="cf-data">[[1722013500,392,17679,"CF Round 962 (Div. 3)"],[1722188100,639,12310,"Pinely Round 4 (Div. 1 + Div. 2)"],[1722357300,772,18357,"Edu CF Round 168 (Rated for Div. 2)"],[1722963600,894,14718,"CF Round 964 (Div. 4)"],[1723307700,884,17240,"CF Round 965 (Div. 2)"],[1723568100,948,15351,"CF Round 966 (Div. 3)"],[1723739700,895,17216,"Edu CF Round 169 (Rated for Div. 2)"],[1724603700,820,18203,"CF Round 968 (Div. 2)"],[1731173700,831,6624,"Refact.ai Match 1 (CF Round 985)"],[1731260100,904,5539,"CF Round 986 (Div. 2)"],[1731862200,995,5316,"CF Round 988 (Div. 3)"],[1734281400,1109,3022,"CF Round 993 (Div. 4)"],[1734629700,1089,9344,"CF Global Round 28"],[1734712500,1150,5628,"CF Round 994 (Div. 2)"],[1734886200,1280,1588,"CF Round 995 (Div. 3)"],[1735058100,1221,9288,"Edu CF Round 173 (Rated for Div. 2)"],[1736699700,1192,10941,"CF Round 996 (Div. 2)"],[1737306300,1245,4290,"CF Round 998 (Div. 3)"],[1738514100,1407,1294,"CF Round 1002 (Div. 2)"],[1739119800,1424,2099,"CF Round 1003 (Div. 4)"],[1741712700,1302,16830,"CF Round 1009 (Div. 3)"],[1781283900,1252,9187,"CF Round 1103 (Div. 3)"],[1788885300,1350,1805,"Edu CF Round 194 (Rated for Div. 2)"]]</script>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+  <script src="assets/js/fx.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

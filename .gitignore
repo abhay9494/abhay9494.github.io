@@ -1,0 +1,6 @@
+# source photos waiting to be processed — never published
+_incoming/
+
+Thumbs.db
+desktop.ini
+.DS_Store
