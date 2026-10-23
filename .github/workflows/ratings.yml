@@ -25,10 +25,10 @@ jobs:
 
       - name: Fetch Codeforces and CodeChef history
         id: fetch
-        continue-on-error: true   # one platform failing must not stop the other one being saved
-        run: python3 scripts/fetch_ratings.py
+        run: python3 scripts/fetch_ratings.py   # fails the run (so GitHub tells you) if a platform could not be fetched
 
       - name: Commit the data if it changed
+        if: always()   # still save whatever did arrive
         run: |
           if git diff --quiet -- assets/data/ratings.json; then
             echo "No change"
