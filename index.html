@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-GbhfHhKfNLwe/QvNfv8DDi42LbeVNjI7Xmx8hQuxY8M='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://drive.google.com https://*.googleusercontent.com; connect-src 'self' https://codeforces.com; frame-src https://drive.google.com https://accounts.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-GbhfHhKfNLwe/QvNfv8DDi42LbeVNjI7Xmx8hQuxY8M='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://drive.google.com https://*.googleusercontent.com; connect-src 'self' https://codeforces.com https://raw.githubusercontent.com; frame-src https://drive.google.com https://accounts.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Abhay Prasad · Software Engineer</title>
   <meta name="description" content="Abhay Prasad: final-year B.Tech IT student at IIIT Lucknow and incoming SDE intern at Tesco Technology. I build Chrome extensions, bots and ML pipelines. Codeforces Specialist, Amazon ML Challenge 2026 top 1,000.">
@@ -110,14 +110,11 @@
         <span class="logo-text">abhay<span>.</span>prasad</span>
       </a>
 
-      <nav class="nav" aria-label="Primary">
-        <span class="nav-ind" aria-hidden="true"></span>
-        <a class="roll" href="#about" data-sec="about"><span class="idx mono">01</span><span class="roll-in"><span>About</span><span aria-hidden="true">About</span></span></a>
-        <a class="roll" href="#work" data-sec="work"><span class="idx mono">02</span><span class="roll-in"><span>Work</span><span aria-hidden="true">Work</span></span></a>
-        <a class="roll" href="#experience" data-sec="experience"><span class="idx mono">03</span><span class="roll-in"><span>Experience</span><span aria-hidden="true">Experience</span></span></a>
-        <a class="roll" href="#awards" data-sec="awards"><span class="idx mono">04</span><span class="roll-in"><span>Awards</span><span aria-hidden="true">Awards</span></span></a>
-        <a class="roll" href="#contact" data-sec="contact"><span class="idx mono">05</span><span class="roll-in"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
-      </nav>
+      <div class="ticker" aria-label="Highlights">
+        <span class="tk-label mono" data-tk-label>Now</span>
+        <a class="tk-text" href="#experience" data-tk-text>Incoming SDE Intern at Tesco Technology, Bengaluru</a>
+        <span class="tk-bar" aria-hidden="true"><i></i></span>
+      </div>
 
       <div class="header-actions">
         <span class="hdr-time mono"><span class="pulse" aria-hidden="true"></span><span data-clock>--:--</span> IST</span>
@@ -626,7 +623,7 @@
             <div class="xp-detail">
               <p>Ran side-by-side evaluations of AI-generated outputs, rating quality, accuracy and relevance with written justifications, and fact-checked responses against sources.</p>
             </div>
-            <button class="tag" type="button" data-view="drive:1s_CnM62VgI6pdzStssnTJdiO7v7-0Q3a" data-kicker="Letter · Turing" data-title="Business Analyst">[ view letter ]</button>
+            <button class="tag" type="button" data-proof="drive:1s_CnM62VgI6pdzStssnTJdiO7v7-0Q3a" data-kicker="Letter · Turing" data-title="Business Analyst">[ view letter ]</button>
           </li>
           <li class="xp-row" data-fade>
             <span class="xp-date mono">Jan 2026 — Feb 2026</span>
@@ -637,7 +634,7 @@
             <div class="xp-detail">
               <p>Reconstructed GUI task trajectories with PyAutoGUI-style JSON annotations for multimodal AI training data. Rated <strong>5/5</strong> with <strong>100% attendance</strong> and a <strong>0% rejection rate</strong>.</p>
             </div>
-            <button class="tag" type="button" data-view="drive:1qd3QxpnhGJN2dOBe35oqP2FisNPCA2gt" data-kicker="Letter · Turing" data-title="GUI Data Annotator">[ view letter ]</button>
+            <button class="tag" type="button" data-proof="drive:1qd3QxpnhGJN2dOBe35oqP2FisNPCA2gt" data-kicker="Letter · Turing" data-title="GUI Data Annotator">[ view letter ]</button>
           </li>
         </ol>
 
@@ -739,7 +736,7 @@
             </header>
             <figure class="cf-chart" data-rating="cc">
               <div class="cf-plot"></div>
-              <figcaption class="mono"><span data-meta>45 rated contests</span> · from CodeChef</figcaption>
+              <figcaption class="mono"><span data-meta>45 rated contests</span> · synced daily from CodeChef</figcaption>
             </figure>
             <ul class="aw-facts">
               <li><span>Peak rating</span><span class="mono">1,680 · 3★</span></li>
@@ -752,7 +749,7 @@
 
         <div class="aw-row aw-row-4">
           <article class="aw-card aw-cert" data-fade>
-            <button class="aw-media aw-tile" type="button" data-view="tpl:amazon" data-kicker="Amazon ML Challenge 2026" data-title="Entity resolution · Top 1,000">
+            <button class="aw-media aw-tile" type="button" data-proof="tpl:amazon" data-kicker="Amazon ML Challenge 2026" data-title="Entity resolution · Top 1,000">
               <span class="tile-big">#416</span>
               <span class="tile-sub mono">peak public rank</span>
               <span class="aw-view mono">View</span>
@@ -763,7 +760,7 @@
           </article>
 
           <article class="aw-card aw-cert" data-fade>
-            <button class="aw-media" type="button" data-view="drive:1cXhbC0zGDcfskCgY8G92dw1JQGunp4Kg" data-kicker="Certificate" data-title="Flipkart Grid 7.0 · National Semi-Finalist">
+            <button class="aw-media" type="button" data-proof="drive:1cXhbC0zGDcfskCgY8G92dw1JQGunp4Kg" data-kicker="Certificate" data-title="Flipkart Grid 7.0 · National Semi-Finalist">
               <img src="https://drive.google.com/thumbnail?id=1cXhbC0zGDcfskCgY8G92dw1JQGunp4Kg&amp;sz=w640" loading="lazy" alt="Flipkart Grid 7.0 certificate">
               <span class="aw-view mono">View</span>
             </button>
@@ -773,7 +770,7 @@
           </article>
 
           <article class="aw-card aw-cert" data-fade>
-            <button class="aw-media" type="button" data-view="drive:1nxNUNpzdDlMcUilhQ099VTOhFexu_eba" data-kicker="Certificate · Microsoft" data-title="Microsoft Certified: SQL AI Developer Associate">
+            <button class="aw-media" type="button" data-proof="drive:1nxNUNpzdDlMcUilhQ099VTOhFexu_eba" data-kicker="Certificate · Microsoft" data-title="Microsoft Certified: SQL AI Developer Associate">
               <img src="https://drive.google.com/thumbnail?id=1nxNUNpzdDlMcUilhQ099VTOhFexu_eba&amp;sz=w640" loading="lazy" alt="Microsoft Certified SQL AI Developer Associate certificate">
               <span class="aw-view mono">View</span>
             </button>
@@ -783,7 +780,7 @@
           </article>
 
           <article class="aw-card aw-cert" data-fade>
-            <button class="aw-media" type="button" data-view="drive:1afdVjzNCAyKGkr_Lu9aqwyEvKUHOhMyI" data-kicker="Certificate" data-title="AlgoUniversity · GraphTheory Programming Camp">
+            <button class="aw-media" type="button" data-proof="drive:1afdVjzNCAyKGkr_Lu9aqwyEvKUHOhMyI" data-kicker="Certificate" data-title="AlgoUniversity · GraphTheory Programming Camp">
               <img src="https://drive.google.com/thumbnail?id=1afdVjzNCAyKGkr_Lu9aqwyEvKUHOhMyI&amp;sz=w640" loading="lazy" alt="AlgoUniversity GraphTheory camp certificate">
               <span class="aw-view mono">View</span>
             </button>
@@ -864,7 +861,7 @@
     <p class="wordmark" aria-hidden="true" data-wordmark>abhay <em>prasad</em></p>
   </footer>
 
-  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
+  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title" data-lenis-prevent>
     <div class="viewer-panel">
       <header class="viewer-head">
         <div>

@@ -132,24 +132,14 @@
   setInterval(tick, 15000);
   $$('[data-year]').forEach((y) => { y.textContent = String(new Date().getFullYear()); });
 
-  /* ---------- Header capsule, active section (nav + rail), progress, quick-contact dock ---------- */
+  /* ---------- Header capsule, active section (rail), progress, quick-contact dock ---------- */
   const header = $('.site-header');
-  const nav = $('.nav');
-  const navInd = $('.nav-ind');
-  const navLinks = $$('.nav .roll');
   const railLinks = $$('.rail a');
   const fab = $('.fab');
   const fabToggle = $('.fab-toggle');
   const fabTop = $('.fab-top');
   const sections = $$('main > section[id]');
   let activeId = null;
-  const moveInd = () => {
-    const a = navLinks.find((l) => l.dataset.sec === activeId);
-    if (!a || getComputedStyle(nav).display === 'none') { navInd.classList.remove('on'); return; }
-    navInd.style.left = a.offsetLeft + 'px';
-    navInd.style.width = a.offsetWidth + 'px';
-    navInd.classList.add('on');
-  };
   const onScroll = () => {
     const y = scrollY;
     const max = document.documentElement.scrollHeight - innerHeight;
@@ -162,14 +152,59 @@
     current = current || activeId || 'home';
     if (current === activeId) return;
     activeId = current;
-    navLinks.forEach((a) => a.classList.toggle('active', a.dataset.sec === current));
     railLinks.forEach((a) => a.classList.toggle('active', a.dataset.sec === current));
-    moveInd();
   };
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', () => { moveInd(); onScroll(); });
-  document.fonts.ready.then(moveInd);
+  addEventListener('resize', onScroll);
   onScroll();
+
+  /* ---------- Highlight ticker: rotates through what I'm doing and what I've done ---------- */
+  const ticker = $('.ticker');
+  if (ticker) {
+    const ITEMS = [
+      ['Now', 'Incoming SDE Intern at Tesco Technology, Bengaluru', '#experience'],
+      ['Best', 'Top 1,000 of 32,000+ teams · Amazon ML Challenge 2026', '#awards'],
+      ['Rating', 'Codeforces Specialist · max rating 1,424', '#awards'],
+      ['Rating', 'CodeChef 3★ · peak rating 1,680', '#awards'],
+      ['Studying', 'Final-year B.Tech IT · IIIT Lucknow', '#experience'],
+      ['Built', 'Auto Form Filler · fills job applications, never presses Submit', '#work'],
+      ['Certified', 'Microsoft Certified: SQL AI Developer Associate', '#awards'],
+      ['Finalist', 'Flipkart Grid 7.0 · National Semi-Finalist', '#awards'],
+    ];
+    const label = $('[data-tk-label]');
+    const text = $('[data-tk-text]');
+    const bar = $('.tk-bar i');
+    const GLYPHS = '!<>-_/[]{}=+*^?#01';
+    const scramble = (el, to) => {
+      if (!motionFull) { el.textContent = to; return; }
+      const from = el.textContent;
+      const q = Array.from({ length: Math.max(from.length, to.length) }, (_, k) => ({
+        from: from[k] || '', to: to[k] || '', start: (Math.random() * 14) | 0, end: 14 + ((Math.random() * 22) | 0),
+      }));
+      let f = 0;
+      const step = () => {
+        let out = '', done = 0;
+        q.forEach((c) => {
+          if (f >= c.end) { done++; out += c.to; } else if (f >= c.start) out += GLYPHS[(Math.random() * GLYPHS.length) | 0]; else out += c.from;
+        });
+        el.textContent = out;
+        if (done < q.length) { f++; requestAnimationFrame(step); }
+      };
+      step();
+    };
+    let i = 0;
+    const show = (k) => {
+      const [l, t, href] = ITEMS[k];
+      scramble(label, l);
+      scramble(text, t);
+      text.href = href;
+      ticker.classList.remove('run');
+      void ticker.offsetWidth; // restart the progress bar
+      ticker.classList.add('run');
+    };
+    bar.addEventListener('animationend', () => { i = (i + 1) % ITEMS.length; show(i); });
+    show(0);
+  }
 
   function closeFab() { fab.classList.remove('open'); fabToggle.setAttribute('aria-expanded', 'false'); }
   fabToggle.addEventListener('click', (e) => {
@@ -461,9 +496,12 @@
     counters.forEach((el) => cio.observe(el));
   }
 
-  /* ---------- Rating graphs: Codeforces (live) and CodeChef (snapshot), laid out like the official ones ---------- */
+  /* ---------- Rating graphs, laid out like the official ones ----------
+     Data: Codeforces live from its API; both platforms also come from assets/data/ratings.json,
+     which .github/workflows/ratings.yml refreshes every day. The JSON in the page is the offline fallback. */
   const RATING = {
     cf: {
+      key: 'codeforces',
       data: '#cf-data',
       live: 'https://codeforces.com/api/user.rating?handle=abhay9494',
       map: (x) => [x.ratingUpdateTimeSeconds, x.newRating, x.rank, x.contestName.replace('Codeforces ', 'CF ').replace('Educational ', 'Edu ')],
@@ -472,6 +510,7 @@
       peak: 1424,
     },
     cc: {
+      key: 'codechef',
       data: '#cc-data',
       bands: [[0, 1400, '1★', '#9aa3ad'], [1400, 1600, '2★', '#3fcf5f'], [1600, 1800, '3★', '#4d7cff'], [1800, 2000, '4★', '#9b6ad6'], [2000, 2200, '5★', '#ffbf00']],
       rank: (r) => (r < 1400 ? '1★' : r < 1600 ? '2★' : r < 1800 ? '3★' : r < 2000 ? '4★' : r < 2200 ? '5★' : '6★'),
@@ -488,6 +527,21 @@
   const nfmt = new Intl.NumberFormat('en-US');
   const dfmt = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   const mfmt = new Intl.DateTimeFormat('en-US', { month: 'short' });
+  const timeout = (ms) => new Promise((r) => setTimeout(() => r(null), ms));
+  const getJSON = async (url, ms = 5000) => {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), ms);
+      const res = await fetch(url, { signal: ctrl.signal, cache: 'no-cache' });
+      clearTimeout(timer);
+      return res.ok ? await res.json() : null;
+    } catch { return null; }
+  };
+  let ratingsFile = null;
+  const loadRatingsFile = () => (ratingsFile ||= (async () =>
+    (await getJSON('https://raw.githubusercontent.com/abhay9494/abhay9494.github.io/main/assets/data/ratings.json')) ||
+    (await getJSON('assets/data/ratings.json')))());
+  const DRAW_MS = 3800;
 
   $$('[data-rating]').forEach((box) => {
     const cfg = RATING[box.dataset.rating];
@@ -496,11 +550,11 @@
     let rows = [];
     try { rows = JSON.parse($(cfg.data).textContent); } catch { rows = []; }
     const tip = Object.assign(document.createElement('div'), { className: 'cf-tip' });
-    let drawn = false;
+    let shown = !motionFull;
 
     const draw = () => {
       if (!rows.length) return;
-      const W = plot.clientWidth || 560, H = plot.clientHeight || 220;
+      const W = plot.clientWidth || 560, H = plot.clientHeight || 230;
       const narrow = W < 420;
       const padL = 38, padR = 10, padT = 16, padB = 24;
       const rs = rows.map((r) => r[1]);
@@ -512,49 +566,53 @@
       const Y = (r) => padT + (1 - (r - yMin) / (yMax - yMin)) * (H - padT - padB);
       const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Rating over ${rows.length} contests, peak ${nfmt.format(Math.max(...rs))}` });
 
-      // rank bands, as on the official graph
       cfg.bands.forEach(([lo, hi, name, col]) => {
         const a = Math.max(lo, yMin), b = Math.min(hi, yMax);
         if (b <= a) return;
         svg.append(svgEl('rect', { x: padL, y: Y(b), width: W - padL - padR, height: Y(a) - Y(b), fill: col, opacity: 0.13 }));
         if (Y(a) - Y(b) > 16) svg.append(svgEl('text', { class: 'cf-band-label', x: W - padR - 6, y: Y(b) + 13, 'text-anchor': 'end' }, name));
       });
-      // y ticks every 200
       for (let v = yMin; v <= yMax; v += 200) {
         svg.append(svgEl('line', { class: 'cf-gridline', x1: padL, x2: W - padR, y1: Y(v), y2: Y(v) }));
         svg.append(svgEl('text', { class: 'cf-axis', x: padL - 6, y: Y(v) + 3.5, 'text-anchor': 'end' }, String(v)));
       }
-      // x ticks: months, spaced to fit
       const spanMonths = (t1 - t0) / (30.44 * day);
       const step = [1, 2, 3, 4, 6, 12].find((s) => spanMonths / s <= (W - padL - padR) / (narrow ? 62 : 78)) || 12;
       const start = new Date(t0 * 1000);
       let d = new Date(start.getFullYear(), Math.ceil((start.getMonth() + 1) / step) * step, 1);
       while (d.getTime() / 1000 < t1) {
         const x = X(d.getTime() / 1000);
-        svg.append(svgEl('line', { class: 'cf-gridline v', x1: x, x2: x, y1: padT, y2: H - padB }));
-        const label = step >= 12 || d.getMonth() === 0 ? String(d.getFullYear()) : `${mfmt.format(d)} ’${String(d.getFullYear()).slice(2)}`;
-        svg.append(svgEl('text', { class: 'cf-axis', x, y: H - 7, 'text-anchor': 'middle' }, label));
+        svg.append(svgEl('line', { class: 'cf-gridline', x1: x, x2: x, y1: padT, y2: H - padB }));
+        const lab = step >= 12 || d.getMonth() === 0 ? String(d.getFullYear()) : `${mfmt.format(d)} ’${String(d.getFullYear()).slice(2)}`;
+        svg.append(svgEl('text', { class: 'cf-axis', x, y: H - 7, 'text-anchor': 'middle' }, lab));
         d = new Date(d.getFullYear(), d.getMonth() + step, 1);
       }
 
       const pts = rows.map(([t, r]) => [X(t), Y(r)]);
-      const path = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
-      const line = svgEl('path', { class: 'cf-line', d: path, pathLength: 1 });
+      // where along the line each contest sits, so its dot appears as the line reaches it
+      const seg = pts.map((pt, i) => (i ? Math.hypot(pt[0] - pts[i - 1][0], pt[1] - pts[i - 1][1]) : 0));
+      const total = seg.reduce((a, b) => a + b, 0) || 1;
+      let acc = 0;
+      const along = seg.map((s) => (acc += s) / total);
+      const line = svgEl('path', { class: 'cf-line', d: pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' '), pathLength: 1 });
       svg.append(line);
       const dots = svgEl('g', { class: 'cf-dots' });
-      pts.forEach(([x, y]) => dots.append(svgEl('circle', { cx: x, cy: y, r: narrow ? 3 : 4 })));
+      pts.forEach(([x, y], i) => {
+        const c = svgEl('circle', { cx: x, cy: y, r: narrow ? 3 : 4 });
+        c.dataset.at = along[i].toFixed(4);
+        dots.append(c);
+      });
       svg.append(dots);
-
       const iMax = rs.indexOf(Math.max(...rs));
-      svg.append(svgEl('circle', { class: 'cf-peak', cx: pts[iMax][0], cy: pts[iMax][1], r: 6 }));
-      svg.append(svgEl('text', { class: 'cf-label', x: Math.min(Math.max(pts[iMax][0], padL + 30), W - padR - 30), y: pts[iMax][1] - 11, 'text-anchor': 'middle' }, `${nfmt.format(rs[iMax])} peak`));
-
+      const peakRing = svgEl('circle', { class: 'cf-peak', cx: pts[iMax][0], cy: pts[iMax][1], r: 6 });
+      const peakLabel = svgEl('text', { class: 'cf-label', x: Math.min(Math.max(pts[iMax][0], padL + 30), W - padR - 30), y: pts[iMax][1] - 11, 'text-anchor': 'middle' }, `${nfmt.format(rs[iMax])} peak`);
+      svg.append(peakRing, peakLabel);
       const cross = svgEl('line', { class: 'cf-cross', x1: 0, x2: 0, y1: padT, y2: H - padB });
       const hot = svgEl('circle', { class: 'cf-hot', r: 6, opacity: 0 });
       svg.append(cross, hot);
       plot.replaceChildren(svg, tip);
 
-      const show = (i) => {
+      const showTip = (i) => {
         const [x, y] = pts[i];
         const [t, r, rank, name] = rows[i];
         const delta = i ? r - rows[i - 1][1] : null;
@@ -576,18 +634,39 @@
         const vx = ((e.clientX - r.left) / r.width) * W;
         let best = 0, bd = Infinity;
         pts.forEach(([x], i) => { const dd = Math.abs(x - vx); if (dd < bd) { bd = dd; best = i; } });
-        show(best);
+        showTip(best);
       });
       svg.addEventListener('pointerleave', hide);
 
-      if (motionFull) {
+      if (!shown) { // hidden until it scrolls into view, then drawn slowly
         line.style.strokeDasharray = '1';
-        line.style.strokeDashoffset = drawn ? '0' : '1';
-        dots.style.opacity = drawn ? '1' : '0';
+        line.style.strokeDashoffset = '1';
+        $$('circle', dots).forEach((c) => { c.style.opacity = '0'; c.style.transform = 'scale(.2)'; });
+        peakRing.style.opacity = '0';
+        peakLabel.style.opacity = '0';
       }
     };
 
-    const facts = () => {
+    const reveal = () => {
+      shown = true;
+      const line = $('.cf-line', box);
+      if (!line) return;
+      line.style.transition = `stroke-dashoffset ${DRAW_MS}ms linear`;
+      const dots = $$('.cf-dots circle', box);
+      dots.forEach((c) => {
+        const delay = Math.round(parseFloat(c.dataset.at) * DRAW_MS);
+        c.style.transition = `opacity .35s ease ${delay}ms, transform .5s cubic-bezier(.34,1.56,.64,1) ${delay}ms`;
+      });
+      const late = $$('.cf-peak, .cf-label', box);
+      late.forEach((el) => { el.style.transition = `opacity .7s ease ${DRAW_MS}ms`; });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        line.style.strokeDashoffset = '0';
+        dots.forEach((c) => { c.style.opacity = '1'; c.style.transform = 'none'; });
+        late.forEach((el) => { el.style.opacity = '1'; });
+      }));
+    };
+
+    const facts = (note) => {
       if (!rows.length) return;
       const now = rows[rows.length - 1][1];
       const max = Math.max(...rows.map((r) => r[1]));
@@ -595,50 +674,40 @@
       if (nowEl) nowEl.textContent = `${nfmt.format(now)} · ${cfg.rank(now)}`;
       const meta = $('[data-meta]', card);
       if (meta) meta.textContent = `${rows.length} rated contests`;
+      if (note) { const cap = $('figcaption', box); cap.lastChild.textContent = ` · ${note}`; }
       if (max > cfg.peak) {
         $('.aw-big', card).lastChild.textContent = nfmt.format(max);
         $('.aw-facts li span.mono', card).textContent = `${nfmt.format(max)} · ${cfg.rank(max)}`;
       }
     };
 
-    const reveal = () => {
-      drawn = true;
-      const ln = $('.cf-line', box), dots = $('.cf-dots', box);
-      if (!ln || !motionFull) return;
-      ln.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.2,.8,.2,1)';
-      dots.style.transition = 'opacity .8s ease 1.1s';
-      requestAnimationFrame(() => { ln.style.strokeDashoffset = '0'; dots.style.opacity = '1'; });
-    };
-
-    const live = async () => {
-      if (!cfg.live) return;
-      try {
-        const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), 6000);
-        const res = await fetch(cfg.live, { signal: ctrl.signal });
-        clearTimeout(timer);
-        const j = await res.json();
-        if (j.status !== 'OK' || !j.result.length) return;
-        rows = j.result.map(cfg.map);
-        draw();
-        facts();
-      } catch { /* offline or blocked: the snapshot stays */ }
+    // freshest source first: Codeforces API, then the daily file
+    const fresh = async () => {
+      if (cfg.live) {
+        const j = await getJSON(cfg.live, 6000);
+        if (j && j.status === 'OK' && j.result.length) return { rows: j.result.map(cfg.map), note: 'live from Codeforces' };
+      }
+      const f = await loadRatingsFile();
+      if (f && Array.isArray(f[cfg.key]) && f[cfg.key].length) return { rows: f[cfg.key], note: cfg.live ? 'synced daily from Codeforces' : 'synced daily from CodeChef' };
+      return null;
     };
 
     draw();
     facts();
     let rt;
     addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(draw, 150); });
+    const start = async () => {
+      const pending = fresh();
+      const got = await Promise.race([pending, timeout(1800)]);
+      if (got) { rows = got.rows; draw(); facts(got.note); }
+      if (!shown) reveal();
+      if (!got) pending.then((g) => { if (g) { rows = g.rows; draw(); facts(g.note); } });
+    };
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(([e]) => {
-        if (!e.isIntersecting) return;
-        io.disconnect();
-        reveal();
-        live();
-      }, { rootMargin: '0px 0px -20% 0px' });
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '0px 0px -25% 0px' });
       io.observe(box);
     } else {
-      reveal();
+      start();
     }
   });
 
@@ -657,7 +726,7 @@
       vBody.append(f);
     };
     const open = (btn) => {
-      const spec = btn.dataset.view;
+      const spec = btn.dataset.proof;
       const cut = spec.indexOf(':');
       const kind = spec.slice(0, cut), val = spec.slice(cut + 1);
       vTitle.textContent = btn.dataset.title || '';
@@ -674,7 +743,7 @@
       root.classList.add('viewer-open');
       lenis?.stop();
     };
-    $$('[data-view]').forEach((btn) => btn.addEventListener('click', () => open(btn)));
+    $$('[data-proof]').forEach((btn) => btn.addEventListener('click', () => open(btn)));
     viewer.addEventListener('close', () => {
       vBody.replaceChildren();
       root.classList.remove('viewer-open');

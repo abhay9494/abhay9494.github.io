@@ -1,0 +1,41 @@
+name: Sync rating graphs
+
+on:
+  schedule:
+    - cron: '30 1 * * *'   # every day at 07:00 IST
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/fetch_ratings.py
+      - .github/workflows/ratings.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ratings
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Codeforces and CodeChef history
+        id: fetch
+        continue-on-error: true   # one platform failing must not stop the other one being saved
+        run: python3 scripts/fetch_ratings.py
+
+      - name: Commit the data if it changed
+        run: |
+          if git diff --quiet -- assets/data/ratings.json; then
+            echo "No change"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/ratings.json
+          git commit -m "Update rating graph data"
+          git push
