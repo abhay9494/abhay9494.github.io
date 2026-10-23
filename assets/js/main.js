@@ -24,6 +24,8 @@
     if (kind === 'phone') { a.href = 'tel:' + PHONE.dial; a.textContent = PHONE.display; }
     if (kind === 'whatsapp') { a.href = 'https://wa.me/' + PHONE.dial.slice(1); external(a); }
   });
+  $$('[data-tel]').forEach((a) => { a.href = 'tel:' + PHONE.dial; });
+  $$('[data-wa]').forEach((a) => { a.href = 'https://wa.me/' + PHONE.dial.slice(1); external(a); });
 
   /* ---------- Toast + copy ---------- */
   const toastEl = $('.toast');
@@ -61,22 +63,13 @@
 
   /* ---------- Settings: theme (circular wipe) + animations ---------- */
   const themeMeta = $('meta[name="theme-color"]');
-  const paintThemeMeta = () => { themeMeta.content = root.dataset.theme === 'dark' ? '#0d0916' : '#f4effc'; };
+  const paintThemeMeta = () => { themeMeta.content = root.dataset.theme === 'dark' ? '#03060f' : '#eef5fd'; };
   paintThemeMeta();
 
   const themeBox = $('[data-setting="theme"]');
   const motionBox = $('[data-setting="motion"]');
-  const motionNote = $('[data-motion-note]');
   themeBox.checked = root.dataset.theme === 'dark';
   motionBox.checked = motionFull;
-  let storedMotion = null;
-  try { storedMotion = localStorage.getItem('motion'); } catch { /* storage unavailable */ }
-  if (!motionFull && !storedMotion) {
-    motionNote.textContent = 'Your device asks for reduced motion, so animations are off. Switch them on to see everything move.';
-    let hinted = null;
-    try { hinted = sessionStorage.getItem('motion-hint'); sessionStorage.setItem('motion-hint', '1'); } catch { /* storage unavailable */ }
-    if (!hinted) setTimeout(() => { toastEl.textContent = 'Animations are off (device setting) · turn them on in Settings'; toastEl.classList.add('show'); setTimeout(() => toastEl.classList.remove('show'), 5200); }, 1200);
-  }
 
   const setTheme = (next, x = innerWidth - 60, y = 30) => {
     const apply = () => {
@@ -111,7 +104,7 @@
   };
   settingsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSettings(); });
   document.addEventListener('click', (e) => { if (!settings.hidden && !settings.contains(e.target)) toggleSettings(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { toggleSettings(false); closeMenu(); } });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { toggleSettings(false); closeMenu(); closeFab(); } });
 
   /* ---------- Phone menu ---------- */
   const menu = $('#menu');
@@ -139,24 +132,53 @@
   setInterval(tick, 15000);
   $$('[data-year]').forEach((y) => { y.textContent = String(new Date().getFullYear()); });
 
-  /* ---------- Header: glass once scrolled, hides on the way down ---------- */
+  /* ---------- Header capsule, active section (nav + rail), progress, quick-contact dock ---------- */
   const header = $('.site-header');
-  let lastY = scrollY;
+  const nav = $('.nav');
+  const navInd = $('.nav-ind');
+  const navLinks = $$('.nav .roll');
+  const railLinks = $$('.rail a');
+  const fab = $('.fab');
+  const fabToggle = $('.fab-toggle');
+  const fabTop = $('.fab-top');
+  const sections = $$('main > section[id]');
+  let activeId = null;
+  const moveInd = () => {
+    const a = navLinks.find((l) => l.dataset.sec === activeId);
+    if (!a || getComputedStyle(nav).display === 'none') { navInd.classList.remove('on'); return; }
+    navInd.style.left = a.offsetLeft + 'px';
+    navInd.style.width = a.offsetWidth + 'px';
+    navInd.classList.add('on');
+  };
   const onScroll = () => {
     const y = scrollY;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    root.style.setProperty('--progress', (max > 0 ? Math.min(1, y / max) : 0).toFixed(4));
     header.classList.toggle('scrolled', y > 40);
-    header.classList.toggle('hide', y > 160 && y > lastY && settings.hidden);
-    lastY = y;
+    fabTop.classList.toggle('show', y > innerHeight * 0.8);
     const probe = innerHeight * 0.4;
     let current = null;
-    $$('main > section[id]').forEach((s) => {
-      const r = s.getBoundingClientRect();
-      if (r.top <= probe && r.bottom > probe) current = s.id;
-    });
-    $$('.nav .roll').forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    sections.forEach((s) => { const r = s.getBoundingClientRect(); if (r.top <= probe && r.bottom > probe) current = s.id; });
+    current = current || activeId || 'home';
+    if (current === activeId) return;
+    activeId = current;
+    navLinks.forEach((a) => a.classList.toggle('active', a.dataset.sec === current));
+    railLinks.forEach((a) => a.classList.toggle('active', a.dataset.sec === current));
+    moveInd();
   };
   addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', () => { moveInd(); onScroll(); });
+  document.fonts.ready.then(moveInd);
   onScroll();
+
+  function closeFab() { fab.classList.remove('open'); fabToggle.setAttribute('aria-expanded', 'false'); }
+  fabToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = !fab.classList.contains('open');
+    fab.classList.toggle('open', open);
+    fabToggle.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', (e) => { if (fab.classList.contains('open') && !fab.contains(e.target)) closeFab(); });
 
   /* ---------- Typewriter in the hero line ---------- */
   const typer = $('.typer');
@@ -439,94 +461,109 @@
     counters.forEach((el) => cio.observe(el));
   }
 
-  /* ---------- Codeforces rating chart: snapshot in the page, refreshed live ---------- */
-  const cfBox = $('[data-cf]');
-  if (cfBox) {
-    const plot = $('.cf-plot', cfBox);
-    const fmt = new Intl.NumberFormat('en-US');
-    const dateFmt = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-    const rankOf = (r) => (r < 1200 ? 'Newbie' : r < 1400 ? 'Pupil' : r < 1600 ? 'Specialist' : r < 1900 ? 'Expert' : r < 2100 ? 'Candidate Master' : 'Master');
-    const BANDS = [[0, 1200, 'Newbie', '#8c8c8c'], [1200, 1400, 'Pupil', '#22a046'], [1400, 1600, 'Specialist', '#03a89e'], [1600, 1900, 'Expert', '#3b6cf0'], [1900, 2100, 'Cand. Master', '#a64bd6']];
+  /* ---------- Rating graphs: Codeforces (live) and CodeChef (snapshot), laid out like the official ones ---------- */
+  const RATING = {
+    cf: {
+      data: '#cf-data',
+      live: 'https://codeforces.com/api/user.rating?handle=abhay9494',
+      map: (x) => [x.ratingUpdateTimeSeconds, x.newRating, x.rank, x.contestName.replace('Codeforces ', 'CF ').replace('Educational ', 'Edu ')],
+      bands: [[0, 1200, 'Newbie', '#9aa3ad'], [1200, 1400, 'Pupil', '#3fcf5f'], [1400, 1600, 'Specialist', '#2cc6b0'], [1600, 1900, 'Expert', '#4d7cff'], [1900, 2100, 'Cand. Master', '#c35cf0'], [2100, 2400, 'Master', '#ffb347']],
+      rank: (r) => (r < 1200 ? 'Newbie' : r < 1400 ? 'Pupil' : r < 1600 ? 'Specialist' : r < 1900 ? 'Expert' : r < 2100 ? 'Candidate Master' : 'Master'),
+      peak: 1424,
+    },
+    cc: {
+      data: '#cc-data',
+      bands: [[0, 1400, '1★', '#9aa3ad'], [1400, 1600, '2★', '#3fcf5f'], [1600, 1800, '3★', '#4d7cff'], [1800, 2000, '4★', '#9b6ad6'], [2000, 2200, '5★', '#ffbf00']],
+      rank: (r) => (r < 1400 ? '1★' : r < 1600 ? '2★' : r < 1800 ? '3★' : r < 2000 ? '4★' : r < 2200 ? '5★' : '6★'),
+      peak: 1680,
+    },
+  };
+  const NS = 'http://www.w3.org/2000/svg';
+  const svgEl = (tag, attrs = {}, text) => {
+    const n = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v));
+    if (text != null) n.textContent = text;
+    return n;
+  };
+  const nfmt = new Intl.NumberFormat('en-US');
+  const dfmt = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const mfmt = new Intl.DateTimeFormat('en-US', { month: 'short' });
+
+  $$('[data-rating]').forEach((box) => {
+    const cfg = RATING[box.dataset.rating];
+    const plot = $('.cf-plot', box);
+    const card = box.closest('.aw-card');
     let rows = [];
-    try { rows = JSON.parse($('#cf-data').textContent); } catch { rows = []; }
-    const NS = 'http://www.w3.org/2000/svg';
-    const el = (tag, attrs = {}, text) => {
-      const n = document.createElementNS(NS, tag);
-      Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v));
-      if (text != null) n.textContent = text;
-      return n;
-    };
+    try { rows = JSON.parse($(cfg.data).textContent); } catch { rows = []; }
     const tip = Object.assign(document.createElement('div'), { className: 'cf-tip' });
+    let drawn = false;
 
     const draw = () => {
       if (!rows.length) return;
-      const W = plot.clientWidth || 560, H = plot.clientHeight || 190;
+      const W = plot.clientWidth || 560, H = plot.clientHeight || 220;
       const narrow = W < 420;
-      const padL = 4, padR = narrow ? 64 : 84, padT = 24, padB = 22;
-      const ratings = rows.map((r) => r[1]);
-      const yMin = Math.max(0, Math.floor((Math.min(...ratings) - 100) / 100) * 100);
-      const yMax = Math.max(1600, Math.ceil((Math.max(...ratings) + 120) / 100) * 100);
-      const n = rows.length;
-      const X = (i) => padL + (i / Math.max(1, n - 1)) * (W - padL - padR);
+      const padL = 38, padR = 10, padT = 16, padB = 24;
+      const rs = rows.map((r) => r[1]);
+      const yMin = Math.max(0, Math.floor((Math.min(...rs) - 60) / 200) * 200);
+      const yMax = Math.ceil((Math.max(...rs) + 90) / 200) * 200;
+      const day = 86400;
+      const t0 = rows[0][0] - 25 * day, t1 = rows[rows.length - 1][0] + 25 * day;
+      const X = (t) => padL + ((t - t0) / (t1 - t0)) * (W - padL - padR);
       const Y = (r) => padT + (1 - (r - yMin) / (yMax - yMin)) * (H - padT - padB);
-      const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Codeforces rating over ${rows.length} contests, peak ${fmt.format(Math.max(...ratings))}` });
+      const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Rating over ${rows.length} contests, peak ${nfmt.format(Math.max(...rs))}` });
 
-      // rank bands (tinted), labels in text colour
-      const bands = el('g', { class: 'cf-band' });
-      BANDS.forEach(([lo, hi, name, col]) => {
+      // rank bands, as on the official graph
+      cfg.bands.forEach(([lo, hi, name, col]) => {
         const a = Math.max(lo, yMin), b = Math.min(hi, yMax);
         if (b <= a) return;
-        bands.append(el('rect', { x: padL, y: Y(b), width: W - padL - padR, height: Y(a) - Y(b), fill: col, opacity: 0.1 }));
-        bands.append(el('text', { x: W - padR + 8, y: (Y(a) + Y(b)) / 2 + 3.5, style: narrow ? 'font-size:9px' : '' }, name));
+        svg.append(svgEl('rect', { x: padL, y: Y(b), width: W - padL - padR, height: Y(a) - Y(b), fill: col, opacity: 0.13 }));
+        if (Y(a) - Y(b) > 16) svg.append(svgEl('text', { class: 'cf-band-label', x: W - padR - 6, y: Y(b) + 13, 'text-anchor': 'end' }, name));
       });
-      svg.append(bands);
-      const grid = el('g', { class: 'cf-grid' });
-      [1200, 1400, 1600].filter((v) => v > yMin && v < yMax).forEach((v) => grid.append(el('line', { x1: padL, x2: W - padR, y1: Y(v), y2: Y(v) })));
-      svg.append(grid);
+      // y ticks every 200
+      for (let v = yMin; v <= yMax; v += 200) {
+        svg.append(svgEl('line', { class: 'cf-gridline', x1: padL, x2: W - padR, y1: Y(v), y2: Y(v) }));
+        svg.append(svgEl('text', { class: 'cf-axis', x: padL - 6, y: Y(v) + 3.5, 'text-anchor': 'end' }, String(v)));
+      }
+      // x ticks: months, spaced to fit
+      const spanMonths = (t1 - t0) / (30.44 * day);
+      const step = [1, 2, 3, 4, 6, 12].find((s) => spanMonths / s <= (W - padL - padR) / (narrow ? 62 : 78)) || 12;
+      const start = new Date(t0 * 1000);
+      let d = new Date(start.getFullYear(), Math.ceil((start.getMonth() + 1) / step) * step, 1);
+      while (d.getTime() / 1000 < t1) {
+        const x = X(d.getTime() / 1000);
+        svg.append(svgEl('line', { class: 'cf-gridline v', x1: x, x2: x, y1: padT, y2: H - padB }));
+        const label = step >= 12 || d.getMonth() === 0 ? String(d.getFullYear()) : `${mfmt.format(d)} ’${String(d.getFullYear()).slice(2)}`;
+        svg.append(svgEl('text', { class: 'cf-axis', x, y: H - 7, 'text-anchor': 'middle' }, label));
+        d = new Date(d.getFullYear(), d.getMonth() + step, 1);
+      }
 
-      // years along the bottom
-      let lastYear = null;
-      rows.forEach(([t], i) => {
-        const yr = new Date(t * 1000).getFullYear();
-        if (yr !== lastYear) {
-          svg.append(el('text', { x: Math.min(X(i), W - padR - 28), y: H - 4, class: 'cf-year', style: 'font:500 10px var(--mono);fill:var(--ink-3)' }, String(yr)));
-          if (i) svg.append(el('line', { x1: X(i), x2: X(i), y1: padT, y2: H - padB, style: 'stroke:var(--chart-grid);stroke-width:1' }));
-          lastYear = yr;
-        }
-      });
-
-      const pts = rows.map((row, i) => [X(i), Y(row[1])]);
-      const d = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
-      svg.append(el('path', { class: 'cf-area', d: `${d} L${pts[pts.length - 1][0].toFixed(1)} ${H - padB} L${pts[0][0].toFixed(1)} ${H - padB} Z` }));
-      const line = el('path', { class: 'cf-line', d, pathLength: 1 });
+      const pts = rows.map(([t, r]) => [X(t), Y(r)]);
+      const path = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
+      const line = svgEl('path', { class: 'cf-line', d: path, pathLength: 1 });
       svg.append(line);
+      const dots = svgEl('g', { class: 'cf-dots' });
+      pts.forEach(([x, y]) => dots.append(svgEl('circle', { cx: x, cy: y, r: narrow ? 3 : 4 })));
+      svg.append(dots);
 
-      const iMax = ratings.indexOf(Math.max(...ratings));
-      const iLast = rows.length - 1;
-      const cross = el('line', { class: 'cf-cross', x1: 0, x2: 0, y1: padT, y2: H - padB });
-      svg.append(cross);
-      // label the peak above its dot; put "now" below its dot when the two would collide
-      const close = iMax !== iLast && Math.abs(pts[iMax][0] - pts[iLast][0]) < 80;
-      (iMax === iLast ? [[iMax, 'max']] : [[iMax, 'max'], [iLast, 'now']]).forEach(([i, tag]) => {
-        svg.append(el('circle', { class: 'cf-dot', cx: pts[i][0], cy: pts[i][1], r: 4.5 }));
-        const lx = Math.min(Math.max(pts[i][0], 34), W - padR - 34);
-        const below = tag === 'now' && close;
-        svg.append(el('text', { class: 'cf-label', x: lx, y: below ? pts[i][1] + 19 : pts[i][1] - 10, 'text-anchor': 'middle' }, `${fmt.format(rows[i][1])}${tag === 'max' ? ' max' : ' now'}`));
-      });
-      const hot = el('circle', { class: 'cf-dot', r: 5, opacity: 0 });
-      svg.append(hot);
+      const iMax = rs.indexOf(Math.max(...rs));
+      svg.append(svgEl('circle', { class: 'cf-peak', cx: pts[iMax][0], cy: pts[iMax][1], r: 6 }));
+      svg.append(svgEl('text', { class: 'cf-label', x: Math.min(Math.max(pts[iMax][0], padL + 30), W - padR - 30), y: pts[iMax][1] - 11, 'text-anchor': 'middle' }, `${nfmt.format(rs[iMax])} peak`));
 
+      const cross = svgEl('line', { class: 'cf-cross', x1: 0, x2: 0, y1: padT, y2: H - padB });
+      const hot = svgEl('circle', { class: 'cf-hot', r: 6, opacity: 0 });
+      svg.append(cross, hot);
       plot.replaceChildren(svg, tip);
 
       const show = (i) => {
         const [x, y] = pts[i];
         const [t, r, rank, name] = rows[i];
+        const delta = i ? r - rows[i - 1][1] : null;
         cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.classList.add('show');
         hot.setAttribute('cx', x); hot.setAttribute('cy', y); hot.setAttribute('opacity', 1);
         tip.replaceChildren(
-          Object.assign(document.createElement('b'), { textContent: `${fmt.format(r)} · ${rankOf(r)}` }),
-          Object.assign(document.createElement('span'), { textContent: `${name} · rank ${fmt.format(rank)}` }),
-          Object.assign(document.createElement('span'), { textContent: dateFmt.format(new Date(t * 1000)) })
+          Object.assign(document.createElement('b'), { textContent: `${nfmt.format(r)}${delta == null ? '' : ` (${delta >= 0 ? '+' : '−'}${Math.abs(delta)})`} · ${cfg.rank(r)}` }),
+          Object.assign(document.createElement('span'), { textContent: `${name} · rank ${nfmt.format(rank)}` }),
+          Object.assign(document.createElement('span'), { textContent: dfmt.format(new Date(t * 1000)) })
         );
         tip.classList.add('show');
         const half = tip.offsetWidth / 2;
@@ -543,10 +580,10 @@
       });
       svg.addEventListener('pointerleave', hide);
 
-      if (full) {
+      if (motionFull) {
         line.style.strokeDasharray = '1';
-        line.style.strokeDashoffset = cfBox.classList.contains('in') ? '0' : '1';
-        line.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.2,.8,.2,1)';
+        line.style.strokeDashoffset = drawn ? '0' : '1';
+        dots.style.opacity = drawn ? '1' : '0';
       }
     };
 
@@ -554,24 +591,35 @@
       if (!rows.length) return;
       const now = rows[rows.length - 1][1];
       const max = Math.max(...rows.map((r) => r[1]));
-      $('[data-cf-now]').textContent = `${fmt.format(now)} · ${rankOf(now)}`;
-      $('[data-cf-meta]').textContent = `${rows.length} rated contests`;
-      if (max > 1424) {
-        const card = cfBox.closest('.aw-card');
-        $('.aw-big', card).lastChild.textContent = fmt.format(max);
-        $('.aw-facts li span.mono', card).textContent = `${fmt.format(max)} · ${rankOf(max)}`;
+      const nowEl = $('[data-now]', card);
+      if (nowEl) nowEl.textContent = `${nfmt.format(now)} · ${cfg.rank(now)}`;
+      const meta = $('[data-meta]', card);
+      if (meta) meta.textContent = `${rows.length} rated contests`;
+      if (max > cfg.peak) {
+        $('.aw-big', card).lastChild.textContent = nfmt.format(max);
+        $('.aw-facts li span.mono', card).textContent = `${nfmt.format(max)} · ${cfg.rank(max)}`;
       }
     };
 
+    const reveal = () => {
+      drawn = true;
+      const ln = $('.cf-line', box), dots = $('.cf-dots', box);
+      if (!ln || !motionFull) return;
+      ln.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.2,.8,.2,1)';
+      dots.style.transition = 'opacity .8s ease 1.1s';
+      requestAnimationFrame(() => { ln.style.strokeDashoffset = '0'; dots.style.opacity = '1'; });
+    };
+
     const live = async () => {
+      if (!cfg.live) return;
       try {
         const ctrl = new AbortController();
         const timer = setTimeout(() => ctrl.abort(), 6000);
-        const res = await fetch('https://codeforces.com/api/user.rating?handle=abhay9494', { signal: ctrl.signal });
+        const res = await fetch(cfg.live, { signal: ctrl.signal });
         clearTimeout(timer);
         const j = await res.json();
         if (j.status !== 'OK' || !j.result.length) return;
-        rows = j.result.map((x) => [x.ratingUpdateTimeSeconds, x.newRating, x.rank, x.contestName.replace('Codeforces ', 'CF ').replace('Educational ', 'Edu ')]);
+        rows = j.result.map(cfg.map);
         draw();
         facts();
       } catch { /* offline or blocked: the snapshot stays */ }
@@ -585,14 +633,14 @@
       const io = new IntersectionObserver(([e]) => {
         if (!e.isIntersecting) return;
         io.disconnect();
-        cfBox.classList.add('in');
-        const ln = $('.cf-line', cfBox);
-        if (ln && full) requestAnimationFrame(() => { ln.style.strokeDashoffset = '0'; });
+        reveal();
         live();
       }, { rootMargin: '0px 0px -20% 0px' });
-      io.observe(cfBox);
+      io.observe(box);
+    } else {
+      reveal();
     }
-  }
+  });
 
   /* ---------- On-page viewer: certificates, letters, credentials ---------- */
   const viewer = $('#viewer');
@@ -700,13 +748,19 @@
     });
 
     const wm = $('[data-wordmark]');
-    if (wm) {
+    if (wm && moving) {
       const s = SplitText.create(wm, { type: 'chars' });
-      if (moving) {
-        gsap.from(s.chars, { yPercent: 100, ease: 'none', stagger: 0.04, scrollTrigger: { trigger: '.footer', start: 'top 95%', end: 'bottom bottom', scrub: true } });
-      } else {
-        gsap.from(s.chars, { opacity: 0, filter: 'blur(8px)', duration: 0.9, stagger: 0.05, ease: 'power2.out', scrollTrigger: { trigger: wm, start: 'top 92%' } });
-      }
+      gsap.from(s.chars, {
+        yPercent: 115, rotate: 7, opacity: 0, duration: 1.25, ease: 'power4.out', stagger: 0.055,
+        scrollTrigger: { trigger: wm, start: 'top 95%' },
+      });
+      const glow = getComputedStyle(root).getPropertyValue('--glow').trim() || '46, 166, 255';
+      const lit = $$('em > div', wm);
+      gsap.fromTo(lit, { textShadow: `0 0 0px rgba(${glow}, 0)` }, {
+        textShadow: `0 0 34px rgba(${glow}, .95)`, duration: 0.7, ease: 'sine.inOut',
+        stagger: { each: 0.12, repeat: -1, yoyo: true, repeatDelay: 1.6 }, delay: 1.4,
+        scrollTrigger: { trigger: wm, start: 'top 95%' },
+      });
     }
   };
 
@@ -750,19 +804,33 @@
 
       if (root.classList.contains('is-loading')) {
         lenis?.stop();
-        const counter = $('[data-count-load]');
-        const o = { v: 0 };
-        gsap.timeline()
-          .from('.loader-name', { yPercent: 110, opacity: 0, filter: 'blur(10px)', duration: 1, ease: 'power4.out' })
-          .from('.loader-sub', { opacity: 0, y: 10, duration: .6 }, 0.25)
-          .to(o, { v: 100, duration: 1.4, ease: 'power2.inOut', onUpdate: () => { counter.textContent = String(Math.round(o.v)).padStart(3, '0'); } }, 0)
-          .to('.loader', { opacity: 0, filter: 'blur(18px)', duration: .8, ease: 'power2.in' }, '+=0.1')
+        const streaks = $('.nf-streaks');
+        const COLORS = ['#062a6b', '#0a3d91', '#0b4fbf', '#1565d8', '#1e8fff', '#2ea6ff', '#4fb8ff', '#8fdcff', '#d8f1ff', '#2a7bff'];
+        const bars = Array.from({ length: innerWidth < 600 ? 36 : 64 }, (_, i) => {
+          const b = document.createElement('i');
+          const c = COLORS[(i * 7) % COLORS.length];
+          b.style.width = gsap.utils.random(0.2, 2.4).toFixed(2) + 'vw';
+          b.style.background = `linear-gradient(180deg, transparent, ${c} 16%, ${c} 84%, transparent)`;
+          b.style.color = c;
+          streaks.append(b);
+          return b;
+        });
+        gsap.set(bars, { xPercent: -50, x: () => gsap.utils.random(-7, 7) + 'vw', scaleY: 0, opacity: 0 });
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+          .fromTo('.nf-logo', { scale: 1.3, opacity: 0, filter: 'blur(14px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 0.9 })
+          .to('.nf-logo', { scale: 1.07, duration: 0.75, ease: 'none' })
+          .addLabel('burst')
+          .to('.nf-logo', { scale: 11, opacity: 0, filter: 'blur(4px)', duration: 0.95, ease: 'power3.in' }, 'burst')
+          .to(bars, { opacity: () => gsap.utils.random(0.55, 1), scaleY: 1, duration: 0.35, ease: 'power2.out', stagger: { each: 0.008, from: 'center' } }, 'burst+=0.12')
+          .to(bars, { x: () => gsap.utils.random(-80, 80) + 'vw', scaleX: () => gsap.utils.random(1.5, 6), duration: 1.15, ease: 'power2.in', stagger: { each: 0.006, from: 'center' } }, 'burst+=0.2')
+          .to(bars, { opacity: 0, duration: 0.45, stagger: { each: 0.004, from: 'edges' } }, 'burst+=0.95')
+          .to('.loader', { opacity: 0, duration: 0.45, ease: 'power2.in' }, 'burst+=1.25')
           .add(() => {
             root.classList.remove('is-loading');
             try { sessionStorage.setItem('intro', '1'); } catch { /* storage unavailable */ }
             lenis?.start();
             heroIntro();
-          }, '-=0.35');
+          }, 'burst+=1.5');
       } else {
         root.classList.remove('is-loading');
         heroIntro();
@@ -793,21 +861,24 @@
           .to('.campus-color', { opacity: 1, ease: 'power1.inOut', duration: 0.7 }, 1.5);
       }
 
-      /* ---- project cards stack: the one underneath sinks back ---- */
-      gsap.matchMedia().add('(min-width: 1201px) and (min-height: 760px)', () => {
-        const cards = $$('.card');
-        const tallest = Math.max(...cards.map((c) => c.offsetHeight));
-        cards.forEach((c) => { c.style.position = 'sticky'; c.style.top = '96px'; c.style.height = tallest + 'px'; });
-        const dims = cards.map((c) => c.appendChild(Object.assign(document.createElement('div'), { className: 'card-dim' })));
-        cards.slice(0, -1).forEach((card, i) => {
-          const next = cards[i + 1];
-          gsap.to(card, { scale: 0.92, ease: 'none', scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 96px', scrub: true } });
-          gsap.to(dims[i], { opacity: 0.55, ease: 'none', scrollTrigger: { trigger: next, start: 'top 70%', end: 'top 96px', scrub: true } });
-        });
-        return () => {
-          cards.forEach((c) => { c.style.position = ''; c.style.top = ''; c.style.height = ''; });
-          dims.forEach((d) => d.remove());
-        };
+      /* ---- project cards stack at every window size; each sticks once it fits on screen ---- */
+      const cards = $$('.card');
+      const dims = cards.map((c) => c.appendChild(Object.assign(document.createElement('div'), { className: 'card-dim' })));
+      const layoutStack = () => {
+        cards.forEach((c) => { c.style.height = ''; c.style.position = 'sticky'; });
+        if (innerWidth > 1200) {
+          const tallest = Math.max(...cards.map((c) => c.offsetHeight));
+          cards.forEach((c) => { c.style.height = tallest + 'px'; });
+        }
+        cards.forEach((c) => { c.style.top = Math.min(96, innerHeight - c.offsetHeight - 20) + 'px'; });
+      };
+      layoutStack();
+      ScrollTrigger.addEventListener('refreshInit', layoutStack);
+      cards.slice(0, -1).forEach((card, i) => {
+        const next = cards[i + 1];
+        const endAt = () => `top ${parseFloat(next.style.top) || 96}px`;
+        gsap.to(card, { scale: 0.92, ease: 'none', scrollTrigger: { trigger: next, start: 'top bottom', end: endAt, scrub: true, invalidateOnRefresh: true } });
+        gsap.to(dims[i], { opacity: 0.55, ease: 'none', scrollTrigger: { trigger: next, start: 'top 70%', end: endAt, scrub: true, invalidateOnRefresh: true } });
       });
 
       /* ---- pixel image comes into focus ---- */

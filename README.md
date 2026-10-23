@@ -8,7 +8,7 @@ Personal portfolio: plain HTML, CSS and JavaScript, with no build step and no fr
 
 ```
 index.html                 all the content (sections are marked with comments)
-assets/css/style.css       design: colour tokens at the top (light lavender + dark theme)
+assets/css/style.css       design: colour tokens at the top (dark navy + light icy-blue theme)
 assets/js/main.js          settings, scroll animations (GSAP + Lenis), cursor, contact form, chart
 assets/js/fx.js            liquid WebGL hero, "made of code" portrait, pixel-focus image
 assets/img/                photos, IIIT Lucknow images + logo, favicon, social-share image
@@ -28,10 +28,12 @@ assets/Abhay_Prasad_Resume.pdf   the "Download resume" file
 | Certificates / letters | Buttons with `data-view="drive:<Google Drive file id>"` open the file inside the page. The Drive file must be shared as "Anyone with the link" |
 | Codeforces chart | Draws from the snapshot in `#cf-data` (bottom of `index.html`) and refreshes itself from the Codeforces API when it scrolls into view |
 
+**Security:** it is a static site (no server, database, login or API keys). `index.html` carries a Content-Security-Policy that only allows the sources the page uses, the CDN scripts are pinned with Subresource Integrity hashes, external links open with `rel="noopener"`, and the contact form only builds a Gmail link (nothing is sent or stored). If you edit the small inline `<script>` in `<head>`, update its `sha256-…` hash in the CSP.
+
 Preview locally with a small server (the code portrait needs one; opening the file directly skips it):
 `python -m http.server 8000` in this folder, then open http://localhost:8000. VS Code's Live Server works too.
 
-**Animations:** the site follows the visitor's "reduce motion" setting. If Windows *Settings → Accessibility → Visual effects → Animation effects* is off, the page starts calm; the **Settings → Animations** switch on the page turns everything on (remembered per browser).
+**Animations:** on for everyone by default; the **Settings → Animations** switch on the page turns them off (remembered per browser).
 
 ## Deploy for free
 

@@ -89,10 +89,10 @@
     ['uRes', 'uTime', 'uMouse', 'uBg', 'uC1', 'uC2', 'uC3'].forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
 
     const setColors = () => {
-      gl.uniform3fv(U.uBg, hexToRgb(cssVar('--gl-bg') || '#f4effc'));
-      gl.uniform3fv(U.uC1, hexToRgb(cssVar('--gl-1') || '#cdb6ff'));
-      gl.uniform3fv(U.uC2, hexToRgb(cssVar('--gl-2') || '#8a52ff'));
-      gl.uniform3fv(U.uC3, hexToRgb(cssVar('--gl-3') || '#ffd3ef'));
+      gl.uniform3fv(U.uBg, hexToRgb(cssVar('--gl-bg') || '#03060f'));
+      gl.uniform3fv(U.uC1, hexToRgb(cssVar('--gl-1') || '#0a2452'));
+      gl.uniform3fv(U.uC2, hexToRgb(cssVar('--gl-2') || '#1e8fff'));
+      gl.uniform3fv(U.uC3, hexToRgb(cssVar('--gl-3') || '#06345e'));
     };
     const resize = () => {
       const scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.55;
@@ -196,9 +196,9 @@
     const draw = (progress = 1) => {
       if (!ok) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = cssVar('--bg') || '#f4effc';
+      ctx.fillStyle = cssVar('--bg') || '#03060f';
       ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = cssVar('--ascii') || '#7a3cf0';
+      ctx.fillStyle = cssVar('--ascii') || '#49b4ff';
       ctx.font = `500 ${ch}px "Geist Mono", ui-monospace, monospace`;
       ctx.textBaseline = 'top';
       for (let y = 0; y < rows; y++) {

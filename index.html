@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-GbhfHhKfNLwe/QvNfv8DDi42LbeVNjI7Xmx8hQuxY8M='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://drive.google.com https://*.googleusercontent.com; connect-src 'self' https://codeforces.com; frame-src https://drive.google.com https://accounts.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Abhay Prasad · Software Engineer</title>
   <meta name="description" content="Abhay Prasad: final-year B.Tech IT student at IIIT Lucknow and incoming SDE intern at Tesco Technology. I build Chrome extensions, bots and ML pipelines. Codeforces Specialist, Amazon ML Challenge 2026 top 1,000.">
   <meta name="author" content="Abhay Prasad">
-  <meta name="theme-color" content="#f4effc">
+  <meta name="theme-color" content="#03060f">
   <link rel="canonical" href="https://abhay9494.github.io/">
 
   <meta property="og:type" content="website">
@@ -23,8 +25,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/abhay.webp" type="image/webp">
   <link rel="stylesheet" href="assets/css/style.css">
 
@@ -32,15 +34,15 @@
     (function () {
       var r = document.documentElement, t, m, seen;
       try { t = localStorage.getItem('theme'); m = localStorage.getItem('motion'); seen = sessionStorage.getItem('intro'); } catch (e) {}
-      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      var reduced = m ? m === 'reduced' : matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (t !== 'light' && t !== 'dark') t = 'dark';
+      var reduced = m === 'reduced';
       r.dataset.theme = t;
       r.dataset.motion = reduced ? 'reduced' : 'full';
       r.classList.add('js');
       if (!reduced) {
         r.classList.add('intro-pending');
         if (!seen) r.classList.add('is-loading');
-        setTimeout(function () { r.classList.remove('is-loading', 'intro-pending'); }, 5000);
+        setTimeout(function () { r.classList.remove('is-loading', 'intro-pending'); }, 6500);
       }
     })();
   </script>
@@ -73,6 +75,15 @@
       <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></symbol>
       <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
       <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8.5 10.5c.5 2 2.5 4 5 5l1.5-1.5 2 1-.5 1.5c-3.5.5-8.5-4.5-8-8l1.5-.5 1 2Z"/></symbol>
+      <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V4"/><path d="m6 10 6-6 6 6"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
       <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
     </defs>
   </svg>
@@ -81,11 +92,10 @@
 
   <!-- Intro -->
   <div class="loader" aria-hidden="true">
-    <div class="loader-mark">
-      <span class="loader-name">Abhay <em>Prasad</em></span>
-      <span class="loader-sub mono">Software engineer — portfolio ©<span data-year>2026</span></span>
+    <div class="nf">
+      <div class="nf-logo"><span class="nf-l" data-l="A">A</span><span class="nf-l" data-l="P">P</span></div>
+      <div class="nf-streaks"></div>
     </div>
-    <span class="loader-count mono"><span data-count-load>000</span></span>
   </div>
 
   <div class="grain" aria-hidden="true"></div>
@@ -94,19 +104,28 @@
 
   <!-- Header -->
   <header class="site-header">
-    <a class="logo" href="#home" aria-label="Abhay Prasad, home">abhay<span>.</span>prasad</a>
+    <div class="hdr">
+      <a class="logo" href="#home" aria-label="Abhay Prasad, home">
+        <span class="logo-ap" aria-hidden="true">AP</span>
+        <span class="logo-text">abhay<span>.</span>prasad</span>
+      </a>
 
-    <nav class="nav" aria-label="Primary">
-      <a class="roll" href="#about"><span class="roll-in"><span>About</span><span aria-hidden="true">About</span></span></a>
-      <a class="roll" href="#work"><span class="roll-in"><span>Work</span><span aria-hidden="true">Work</span></span></a>
-      <a class="roll" href="#experience"><span class="roll-in"><span>Experience</span><span aria-hidden="true">Experience</span></span></a>
-      <a class="roll" href="#awards"><span class="roll-in"><span>Awards</span><span aria-hidden="true">Awards</span></span></a>
-    </nav>
+      <nav class="nav" aria-label="Primary">
+        <span class="nav-ind" aria-hidden="true"></span>
+        <a class="roll" href="#about" data-sec="about"><span class="idx mono">01</span><span class="roll-in"><span>About</span><span aria-hidden="true">About</span></span></a>
+        <a class="roll" href="#work" data-sec="work"><span class="idx mono">02</span><span class="roll-in"><span>Work</span><span aria-hidden="true">Work</span></span></a>
+        <a class="roll" href="#experience" data-sec="experience"><span class="idx mono">03</span><span class="roll-in"><span>Experience</span><span aria-hidden="true">Experience</span></span></a>
+        <a class="roll" href="#awards" data-sec="awards"><span class="idx mono">04</span><span class="roll-in"><span>Awards</span><span aria-hidden="true">Awards</span></span></a>
+        <a class="roll" href="#contact" data-sec="contact"><span class="idx mono">05</span><span class="roll-in"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
+      </nav>
 
-    <div class="header-actions">
-      <button class="text-btn settings-btn" type="button" aria-expanded="false" aria-controls="settings">Settings</button>
-      <a class="pill pill-glow pill-sm magnetic" href="#contact"><span>Let's talk</span></a>
-      <button class="text-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <div class="header-actions">
+        <span class="hdr-time mono"><span class="pulse" aria-hidden="true"></span><span data-clock>--:--</span> IST</span>
+        <button class="icon-round settings-btn" type="button" aria-label="Settings" aria-expanded="false" aria-controls="settings"><svg class="ic"><use href="#i-gear"/></svg></button>
+        <a class="pill pill-glow pill-sm magnetic hdr-cta" href="#contact"><span>Let's talk</span></a>
+        <button class="text-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      </div>
+      <span class="hdr-progress" aria-hidden="true"><i></i></span>
     </div>
 
     <div class="settings" id="settings" hidden>
@@ -121,7 +140,6 @@
         <input type="checkbox" data-setting="motion">
         <i aria-hidden="true"></i>
       </label>
-      <p class="settings-note mono" data-motion-note></p>
     </div>
   </header>
 
@@ -142,6 +160,35 @@
       <p class="mono">Dhanbad, IN · <span data-clock>--:--</span> IST</p>
     </div>
   </div>
+
+  <!-- Section rail (left edge) -->
+  <nav class="rail" aria-label="Sections">
+    <a href="#home" data-sec="home"><i></i><span>Home</span></a>
+    <a href="#about" data-sec="about"><i></i><span>About</span></a>
+    <a href="#work" data-sec="work"><i></i><span>Work</span></a>
+    <a href="#experience" data-sec="experience"><i></i><span>Experience</span></a>
+    <a href="#awards" data-sec="awards"><i></i><span>Awards</span></a>
+    <a href="#contact" data-sec="contact"><i></i><span>Contact</span></a>
+  </nav>
+
+  <!-- Quick contact + back to top (bottom-right) -->
+  <aside class="fab" aria-label="Quick contact">
+    <div class="fab-list" id="fab-list">
+      <a class="fab-btn" data-gmail href="#contact" aria-label="Email me"><svg class="ic"><use href="#i-mail"/></svg><span class="fab-tip">Email</span></a>
+      <a class="fab-btn" data-tel href="#contact" aria-label="Call me"><svg class="ic"><use href="#i-phone"/></svg><span class="fab-tip">Call</span></a>
+      <a class="fab-btn" data-wa href="#contact" aria-label="WhatsApp"><svg class="ic"><use href="#i-chat"/></svg><span class="fab-tip">WhatsApp</span></a>
+      <a class="fab-btn" href="https://www.linkedin.com/in/abhay9494" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg><span class="fab-tip">LinkedIn</span></a>
+      <a class="fab-btn" href="https://github.com/abhay9494" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic"><use href="#i-github"/></svg><span class="fab-tip">GitHub</span></a>
+      <a class="fab-btn" href="assets/Abhay_Prasad_Resume.pdf" download aria-label="Download resume"><svg class="ic"><use href="#i-down"/></svg><span class="fab-tip">Resume</span></a>
+    </div>
+    <button class="fab-toggle" type="button" aria-expanded="false" aria-controls="fab-list" aria-label="Contact options">
+      <svg class="ic fab-open"><use href="#i-message"/></svg><svg class="ic fab-close"><use href="#i-x"/></svg>
+    </button>
+    <a class="fab-top" href="#home" aria-label="Back to top">
+      <svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20"/><circle class="ring-p" cx="22" cy="22" r="20" pathLength="1"/></svg>
+      <svg class="ic"><use href="#i-up"/></svg>
+    </a>
+  </aside>
 
   <main id="main">
     <!-- ================= HERO ================= -->
@@ -236,17 +283,17 @@
             <filter id="duo-light" color-interpolation-filters="sRGB">
               <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0"/>
               <feComponentTransfer>
-                <feFuncR type="table" tableValues=".09 .73"/>
-                <feFuncG type="table" tableValues=".05 .61"/>
-                <feFuncB type="table" tableValues=".22 1"/>
+                <feFuncR type="table" tableValues=".02 .6"/>
+                <feFuncG type="table" tableValues=".07 .82"/>
+                <feFuncB type="table" tableValues=".2 1"/>
               </feComponentTransfer>
             </filter>
             <filter id="duo-dark" color-interpolation-filters="sRGB">
               <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0"/>
               <feComponentTransfer>
-                <feFuncR type="table" tableValues=".16 .85"/>
-                <feFuncG type="table" tableValues=".09 .78"/>
-                <feFuncB type="table" tableValues=".32 1"/>
+                <feFuncR type="table" tableValues=".03 .68"/>
+                <feFuncG type="table" tableValues=".1 .88"/>
+                <feFuncB type="table" tableValues=".26 1"/>
               </feComponentTransfer>
             </filter>
             <radialGradient id="spot-grad">
@@ -669,13 +716,13 @@
               </div>
               <p class="aw-big"><small class="mono">max rating</small>1,424</p>
             </header>
-            <figure class="cf-chart" data-cf>
+            <figure class="cf-chart" data-rating="cf">
               <div class="cf-plot"></div>
-              <figcaption class="mono"><span data-cf-meta>23 rated contests</span> · live from Codeforces</figcaption>
+              <figcaption class="mono"><span data-meta>23 rated contests</span> · live from Codeforces</figcaption>
             </figure>
             <ul class="aw-facts">
               <li><span>Max rating</span><span class="mono">1,424 · Specialist</span></li>
-              <li><span>Current rating</span><span class="mono" data-cf-now>1,350 · Pupil</span></li>
+              <li><span>Current rating</span><span class="mono" data-now>1,350 · Pupil</span></li>
               <li><span>Round 1002 (Div. 2)</span><span class="mono">1,294 / 19,943 · top 6.5%</span></li>
               <li><span>Round 995 (Div. 3)</span><span class="mono">1,588 / 13,078 · top 12.1%</span></li>
             </ul>
@@ -688,21 +735,15 @@
                 <p class="label mono">Competitive programming</p>
                 <h3>CodeChef</h3>
               </div>
-              <p class="aw-big"><small class="mono">peak rating</small>1,680</p>
+              <p class="aw-big"><small class="mono"><span class="stars-mini" aria-label="3 stars">★★★</span> peak rating</small>1,680</p>
             </header>
-            <div class="cc-visual">
-              <div class="cc-stars" role="img" aria-label="3 stars">
-                <svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg>
-                <span class="mono">3★ coder</span>
-              </div>
-              <div class="cc-bars">
-                <div class="cc-bar"><span class="mono">Starters 167 · Div. 3</span><span class="bar" title="Ahead of 98.0% of participants"><span style="--w:98.0"></span></span><b class="mono">ahead of 98.0%</b></div>
-                <div class="cc-bar"><span class="mono">Starters 172 · Div. 2</span><span class="bar" title="Ahead of 92.8% of participants"><span style="--w:92.8"></span></span><b class="mono">ahead of 92.8%</b></div>
-              </div>
-            </div>
+            <figure class="cf-chart" data-rating="cc">
+              <div class="cf-plot"></div>
+              <figcaption class="mono"><span data-meta>45 rated contests</span> · from CodeChef</figcaption>
+            </figure>
             <ul class="aw-facts">
               <li><span>Peak rating</span><span class="mono">1,680 · 3★</span></li>
-              <li><span>Progress</span><span class="mono">+200 in under six months</span></li>
+              <li><span>Current rating</span><span class="mono" data-now>1,648 · 3★</span></li>
               <li><span>Starters 167 (Div. 3)</span><span class="mono">55 / 2,702 · top 2.0%</span></li>
               <li><span>Starters 172 (Div. 2)</span><span class="mono">141 / 1,954 · top 7.2%</span></li>
             </ul>
@@ -862,14 +903,15 @@
     </div>
   </template>
 
+  <script type="application/json" id="cc-data">[[1698856680,923,12073,"Starters 106 Div. 4"],[1703091606,991,12050,"Starters 113 Div. 4"],[1706113806,1044,12196,"Starters 118 Div. 4"],[1706718606,1069,15439,"Starters 119 Div. 4"],[1707323760,1073,20548,"Starters 120 Div. 4"],[1709742606,1102,15449,"Starters 124 Div. 4"],[1710347408,1121,15997,"Starters 125 Div. 4"],[1710952206,1154,9650,"Starters 126 Div. 4"],[1711557006,1135,21925,"Starters 127 Div. 4"],[1712161806,1131,17398,"Starters 128 Div. 4"],[1713976206,1166,5647,"Starters 131 Div. 4"],[1714581006,1194,4493,"Starters 132 Div. 4"],[1715790960,1212,5800,"Starters 134 Div. 4"],[1717000206,1239,4655,"Starters 136 Div. 4"],[1718209806,1263,4765,"Starters 138 Div. 4"],[1718814606,1288,3714,"Starters 139 Div. 4"],[1720024206,1298,5607,"Starters 141 Div. 4"],[1721838606,1309,6605,"Starters 144 Div. 4"],[1722443406,1286,16154,"Starters 145 Div. 4"],[1723048204,1305,6818,"Starters 146 Div. 4 (Rated till 5 stars)"],[1723653006,1332,2093,"Starters 147 Div. 4 (Rated till 5 stars)"],[1724862606,1337,9304,"Starters 149"],[1725469206,1374,1063,"Starters 150"],[1726072206,1348,15525,"Starters 151 (rated)"],[1727281806,1372,4785,"Starters 153"],[1727886606,1373,8799,"Starters 154"],[1728491404,1414,847,"Starters 155"],[1729096204,1428,2096,"Starters 156"],[1729701004,1397,3102,"Starters 157"],[1730910606,1425,2634,"Starters 159"],[1731517204,1435,1409,"Starters 160"],[1732122004,1425,1660,"Starters 161"],[1733329804,1444,958,"Starters 163"],[1734539404,1473,780,"Starters 165"],[1735144204,1515,171,"Starters 166"],[1735749004,1564,55,"Starters 167"],[1736958604,1522,2973,"Starters 169"],[1737563404,1558,651,"Starters 170"],[1738168204,1609,213,"Starters 171"],[1738773002,1669,141,"Starters 172"],[1739379602,1604,2740,"Starters 173 (Rated upto < 2700)"],[1781109002,1574,1020,"Starters 242"],[1781713804,1626,232,"Starters 243"],[1787157120,1680,259,"Starters 252"],[1788366602,1648,951,"Starters 254"]]</script>
   <script type="application/json" id="cf-data">[[1722013500,392,17679,"CF Round 962 (Div. 3)"],[1722188100,639,12310,"Pinely Round 4 (Div. 1 + Div. 2)"],[1722357300,772,18357,"Edu CF Round 168 (Rated for Div. 2)"],[1722963600,894,14718,"CF Round 964 (Div. 4)"],[1723307700,884,17240,"CF Round 965 (Div. 2)"],[1723568100,948,15351,"CF Round 966 (Div. 3)"],[1723739700,895,17216,"Edu CF Round 169 (Rated for Div. 2)"],[1724603700,820,18203,"CF Round 968 (Div. 2)"],[1731173700,831,6624,"Refact.ai Match 1 (CF Round 985)"],[1731260100,904,5539,"CF Round 986 (Div. 2)"],[1731862200,995,5316,"CF Round 988 (Div. 3)"],[1734281400,1109,3022,"CF Round 993 (Div. 4)"],[1734629700,1089,9344,"CF Global Round 28"],[1734712500,1150,5628,"CF Round 994 (Div. 2)"],[1734886200,1280,1588,"CF Round 995 (Div. 3)"],[1735058100,1221,9288,"Edu CF Round 173 (Rated for Div. 2)"],[1736699700,1192,10941,"CF Round 996 (Div. 2)"],[1737306300,1245,4290,"CF Round 998 (Div. 3)"],[1738514100,1407,1294,"CF Round 1002 (Div. 2)"],[1739119800,1424,2099,"CF Round 1003 (Div. 4)"],[1741712700,1302,16830,"CF Round 1009 (Div. 3)"],[1781283900,1252,9187,"CF Round 1103 (Div. 3)"],[1788885300,1350,1805,"Edu CF Round 194 (Rated for Div. 2)"]]</script>
 
   <div class="toast" role="status" aria-live="polite"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha384-SWJ0lLVRoipvHh59xj0pL7uC7Ih51F+5smaFtrG+2nr+TlDZU5SYJHmxfolbeNTr" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" integrity="sha384-jqpi9VmOdhyLoLURgjCn7EpnG9BbnHW57ibIZoeaIU+erWDH3k8fQQg0xH2ySjnw" crossorigin="anonymous" defer></script>
   <script src="assets/js/fx.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </body>
